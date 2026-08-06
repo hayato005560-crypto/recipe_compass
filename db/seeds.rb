@@ -7,3 +7,8 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+purpose_names = ["ダイエット", "筋肉増量", "時短", "節約"]
+
+purpose_names.each do |name|
+  Purpose.find_or_create_by!(name: name)
+end
