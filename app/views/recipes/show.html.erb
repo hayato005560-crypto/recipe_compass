@@ -1,0 +1,39 @@
+<h1><%= @recipe.title %></h1>
+
+<div>
+  <% @recipe.purposes.each do |purpose| %>
+    <p><%= purpose.name %></p>
+  <% end %>
+</div>
+
+<div>
+  <% if @recipe.image.attached? %>
+    <%= image_tag @recipe.image %>
+  <% end %>
+</div>
+
+<div>
+  <h2>材料</h2>
+  <p><%= @recipe.ingredients %></p>
+</div>
+
+<div>
+  <h2>調理時間</h2>
+  <p><%= @recipe.cooking_time %>分</p>
+</div>
+
+<div>
+  <h2>作り方</h2>
+  <p><%= @recipe.steps %></p>
+</div>
+
+<div>
+  <h2>補足説明</h2>
+  <p><%= @recipe.body %></p>
+</div>
+
+<div>
+<% if Current.user == @recipe.user %>
+  <%= button_to "編集", edit_recipe_path(@recipe), method: :get %>
+  <%= button_to "削除", @recipe, method: :delete %>
+<% end %>
