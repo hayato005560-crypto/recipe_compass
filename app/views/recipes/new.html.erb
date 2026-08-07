@@ -1,0 +1,40 @@
+<h1>新規レシピ投稿画面</h1>
+
+<%= form_with model: @recipe do |form| %>
+    <div>
+      <%= form.label :title, "レシピ名" %>
+      <%= form.text_field :title %>
+    </div>
+
+  <div>
+    <%= form.label :image, "画像" %>
+    <%= form.file_field :image %>
+  </div>
+
+    <div>
+      <p>目的</p>
+      <%= form.collection_check_boxes :purpose_ids, Purpose.all, :id, :name %>
+    </div>
+
+    <div>
+      <%= form.label :cooking_time, "調理時間(分)" %>
+      <%= form.number_field :cooking_time, min: 1 %>
+    </div>
+
+    <div>
+      <%= form.label :ingredients, "材料" %>
+      <%= form.text_area :ingredients %>
+    </div>
+    
+    <div>
+      <%= form.label :steps, "作り方" %>
+      <%= form.text_area :steps %>
+    </div>
+
+    <div>
+      <%= form.label :body, "補足説明" %>
+      <%= form.text_area :body %>
+    </div>
+
+    <%= form.submit "投稿" %>
+<% end %>
