@@ -1,0 +1,21 @@
+<h1>ユーザー情報編集</h1>
+
+<%= form_with model: @user do |form| %>
+    <div>
+      <%= form.label :name, "ユーザーネーム" %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div>
+      <%= form.label :email_address, "メールアドレス" %>
+      <%= form.email_field :email_address %>
+    </div>
+    
+    <div>
+      <%= form.label :introduction, "自己紹介" %>
+      <%= form.text_area :introduction %>
+    </div>
+
+    <%= form.submit "更新" %>
+
+<% end %>
