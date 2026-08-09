@@ -14,7 +14,7 @@
 </div>
 
 <div>
-  <% if @user == Current.user %>
+  <% if @user == Current.user && !Current.user.is_guest? %>
     <%= button_to "プロフィール編集", edit_user_path(@user), method: :get %>
     <%= button_to "退会する", @user, method: :delete %>
   <% end %>

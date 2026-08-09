@@ -1,5 +1,15 @@
 <h1>ユーザー情報編集</h1>
 
+<div>
+  <% if @user.errors.any? %>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
 <%= form_with model: @user do |form| %>
     <div>
       <%= form.label :name, "ユーザーネーム" %>

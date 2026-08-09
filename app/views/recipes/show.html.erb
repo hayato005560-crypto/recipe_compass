@@ -33,7 +33,8 @@
 </div>
 
 <div>
-<% if Current.user == @recipe.user %>
-  <%= button_to "編集", edit_recipe_path(@recipe), method: :get %>
-  <%= button_to "削除", @recipe, method: :delete %>
-<% end %>
+  <% if Current.user == @recipe.user && !Current.user.is_guest? %>
+    <%= button_to "編集", edit_recipe_path(@recipe), method: :get %>
+    <%= button_to "削除", @recipe, method: :delete %>
+  <% end %>
+</div>
