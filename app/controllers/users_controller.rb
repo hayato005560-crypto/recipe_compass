@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   allow_unauthenticated_access only: %i[new create]
+  before_action :reject_guest, only: %i[edit update destroy]
 
   def new
     @user = User.new
@@ -63,6 +64,12 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:name, :email_address, :password, :password_confirmation, :introduction)
+  end
+
+    def reject_guest
+    if Current.user.is_guest?
+      redirect_to recipes_path, alert: "ゲストユーザーはこの操作を行えません"
+    end
   end
 
 end

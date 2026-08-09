@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  before_action :reject_guest, only: %i[new create edit update destroy]
+
   def index
     @recipes = Recipe.all
   end
@@ -45,6 +47,12 @@ class RecipesController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(:title, :body, :cooking_time, :ingredients, :steps, :image, purpose_ids: [])
+  end
+
+  def reject_guest
+    if Current.user.is_guest?
+      redirect_to recipes_path, alert: "ゲストユーザーはこの操作を行えません"
+    end
   end
 
 end

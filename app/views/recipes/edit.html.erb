@@ -1,5 +1,15 @@
 <h1>レシピ編集</h1>
 
+<div>
+  <% if @recipe.errors.any? %>
+    <ul>
+      <% @recipe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
 <%= form_with model: @recipe do |form| %>
   <div>
     <%= form.label :title, "レシピ名" %>
