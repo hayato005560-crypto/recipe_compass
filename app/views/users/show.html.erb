@@ -16,6 +16,6 @@
 <div>
   <% if @user == Current.user && !Current.user.is_guest? %>
     <%= button_to "プロフィール編集", edit_user_path(@user), method: :get %>
-    <%= button_to "退会する", @user, method: :delete %>
+    <%= button_to "退会する", @user, method: :delete, form: { onsubmit: "return confirm('本当に退会しますか？')" } %>
   <% end %>
 </div>
