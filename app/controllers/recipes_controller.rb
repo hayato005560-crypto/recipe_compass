@@ -2,7 +2,38 @@ class RecipesController < ApplicationController
   before_action :reject_guest, only: %i[new create edit update destroy]
 
   def index
+    keyword = params[:keyword]
+    target = params[:target]
+    @purposes = Purpose.all
+    purpose_id = params[:purpose_id]
     @recipes = Recipe.all
+
+    if keyword.present?
+      case target
+        when "title"
+          @recipes = @recipes.where("title LIKE ?", "%#{keyword}%")
+        when "body"
+          @recipes = @recipes.where("body LIKE ?", "%#{keyword}%")
+        when "ingredients"
+          @recipes = @recipes.where("ingredients LIKE ?", "%#{keyword}%")
+        when "steps"
+          @recipes = @recipes.where("steps LIKE ?", "%#{keyword}%")
+        when "all"
+          @recipes = @recipes.where(
+            "title LIKE ? OR body LIKE ? OR ingredients LIKE ? OR steps LIKE ?",
+                "%#{keyword}%",
+                "%#{keyword}%",
+                "%#{keyword}%",
+                "%#{keyword}%"
+          )
+      end
+    end
+
+    if purpose_id.present?
+      @recipes = @recipes.joins(:purposes).where(
+        purposes: { id: purpose_id }
+      )
+    end
   end
 
   def show
