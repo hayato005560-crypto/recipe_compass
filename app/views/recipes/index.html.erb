@@ -1,11 +1,21 @@
 <h1>レシピ一覧</h1>
+<%= form_with url: recipes_path, method: :get, data: { turbo_frame: "recipe_list" } do |form| %>
+  <%= form.select :target, [["すべて","all"],["タイトル","title"],["説明","body"],["材料","ingredients"],["作り方","steps"]] %>
+  <%= form.text_field :keyword %>
+  <%= form.select :purpose_id,
+    options_from_collection_for_select(@purposes, :id, :name),
+    include_blank: "指定なし" %>
+  <%= form.submit "検索" %>
+<% end %>
 
-<% @recipes.each do |recipe| %>
+<%= turbo_frame_tag "recipe_list" do  %>
+  <% @recipes.each do |recipe| %>
     <p><%= link_to recipe.title, recipe_path(recipe) %></p>
     <p>投稿者: <%= recipe.user.name %></p>
     
     <% recipe.purposes.each do |purpose| %>
-        <p><%= purpose.name %></p>
+      <p><%= purpose.name %></p>
     <% end %>
 
+  <% end %>
 <% end %>
