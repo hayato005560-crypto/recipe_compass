@@ -10,7 +10,7 @@
 
 <%= turbo_frame_tag "recipe_list" do  %>
   <% @recipes.each do |recipe| %>
-    <p><%= link_to recipe.title, recipe_path(recipe) %></p>
+    <p><%= link_to recipe.title, recipe_path(recipe), data: { turbo_frame: "_top" } %></p>
     <p>投稿者: <%= recipe.user.name %></p>
     
     <% recipe.purposes.each do |purpose| %>

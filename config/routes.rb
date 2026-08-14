@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   #resources :passwords, param: :token
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :recipes do
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [:create, :edit, :update, :destroy]
   end
 
   namespace :admin do

@@ -38,6 +38,7 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+    @comments = @recipe.comments
   end
 
   def new
@@ -78,12 +79,6 @@ class RecipesController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(:title, :body, :cooking_time, :ingredients, :steps, :image, purpose_ids: [])
-  end
-
-  def reject_guest
-    if Current.user.is_guest?
-      redirect_to recipes_path, alert: "ゲストユーザーはこの操作を行えません"
-    end
   end
 
 end
