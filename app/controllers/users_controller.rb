@@ -66,10 +66,4 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email_address, :password, :password_confirmation, :introduction)
   end
 
-    def reject_guest
-    if Current.user.is_guest?
-      redirect_to recipes_path, alert: "ゲストユーザーはこの操作を行えません"
-    end
-  end
-
 end

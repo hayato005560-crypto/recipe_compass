@@ -1,0 +1,7 @@
+<h1>コメント編集</h1>
+
+<%= form_with model: [@recipe, @comment] do |form| %>
+  <%= form.label :body, "コメント" %>
+  <%= form.text_area :body %>
+  <%= form.submit "更新" %>
+<% end %>

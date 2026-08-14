@@ -38,3 +38,26 @@
     <%= button_to "削除", @recipe, method: :delete %>
   <% end %>
 </div>
+
+<div>
+  <% @comments.each do |comment| %>
+    <p><%= comment.user.name %></p>
+    <p><%= comment.body %></p>
+
+    <% if Current.user == comment.user %>
+      <%= button_to "編集", edit_recipe_comment_path(@recipe, comment), method: :get %>
+      <%= button_to "削除", recipe_comment_path(@recipe, comment), method: :delete %>
+    <% end %>
+
+  <% end %>
+</div>
+
+<div>
+  <% if Current.user.present? && !Current.user.is_guest? %>
+    <%= form_with url: recipe_comments_path(@recipe), scope: :comment do |form| %>
+      <%= form.label :body, "コメント" %>
+      <%= form.text_area :body %>
+      <%= form.submit "コメントする" %>
+    <% end %>
+  <% end %>
+</div>
