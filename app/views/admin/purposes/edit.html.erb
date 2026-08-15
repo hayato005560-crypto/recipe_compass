@@ -1,0 +1,7 @@
+<h1>目的編集</h1>
+
+<%= form_with model: [:admin, @purpose] do |form| %>
+    <%= form.label :name, "目的名" %>
+    <%= form.text_field :name %>
+    <%= form.submit "更新" %>
+<% end %>

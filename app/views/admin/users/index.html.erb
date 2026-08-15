@@ -1,0 +1,9 @@
+<h1>登録ユーザー 一覧 </h1>
+
+<% @users.each do |user| %>
+    <p><%= link_to user.name, admin_user_path(user) %></p>
+    <p><%= user.id %></p>
+    <p><%= user.email_address %></p>
+    <p><%= user.role %></p>
+    <p><%= user.is_active %></p>
+<% end %>

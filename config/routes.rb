@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :recipes, only: [:index, :show, :destroy] do
       resources :comments, only: [:index, :destroy]
     end
-    resources :purposes, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :purposes, only: [:index, :create, :edit, :update, :destroy]
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

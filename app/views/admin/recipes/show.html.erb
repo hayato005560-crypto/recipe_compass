@@ -1,0 +1,21 @@
+<h1>レシピ詳細</h1>
+
+<h2><%= @recipe.title %></h2>
+
+<%= @recipe.user.name %>
+
+<%= @recipe.cooking_time %>
+
+<%= @recipe.body %>
+
+<%= @recipe.steps %>
+
+<%= @recipe.ingredients %>
+
+<div>
+  <%= link_to "レシピへのコメント一覧", admin_recipe_comments_path(@recipe) %>
+</div>
+
+<div>
+  <%= button_to "削除", admin_recipe_path(@recipe), method: :delete %>
+</div>

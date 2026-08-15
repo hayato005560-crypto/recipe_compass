@@ -1,0 +1,13 @@
+<h1>目的一覧</h1>
+
+<%= form_with model: [:admin, @purpose] do |form| %>
+    <%= form.label :name, "目的名" %>
+    <%= form.text_field :name %>
+    <%= form.submit "追加" %>
+<% end %>
+
+<% @purposes.each do |purpose| %>
+    <%= purpose.name %>
+    <%= link_to "編集", edit_admin_purpose_path(purpose) %>
+    <%= button_to "削除", admin_purpose_path(purpose), method: :delete %>
+<% end %>
