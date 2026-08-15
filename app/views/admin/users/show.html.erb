@@ -1,0 +1,23 @@
+<h1>ユーザー詳細情報</h1>
+
+<h2>ユーザー名<br>
+  <%= @user.name %>
+</h2>
+
+<p><%= @user.id %></p>
+
+<p><%= @user.email_address %></p>
+
+<p><%= @user.role %></p>
+
+<% if @user.is_active %>
+  <p>会員</p>
+<% else %>
+  <p>退会</p>
+<% end %>
+
+<p><%= @user.introduction %></p>
+
+<div>
+  <%= link_to "編集", edit_admin_user_path(@user) %>
+</div>

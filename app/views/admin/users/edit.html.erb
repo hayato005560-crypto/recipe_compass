@@ -1,0 +1,31 @@
+<h1>ユーザー情報 編集</h1>
+<div>
+
+  <%= form_with model: [:admin, @user] do |form| %>
+      <div>
+          <%= form.label :name, "ユーザー名" %>
+          <%= form.text_field :name %>
+      </div>
+
+      <div>
+          <%= form.label :email_address, "メールアドレス" %>
+          <%= form.email_field :email_address %>
+      </div>
+
+      <div>
+          <%= form.label :introduction, "自己紹介" %>
+          <%= form.text_field :introduction %>
+      </div>
+
+      <div>
+          <%= form.radio_button :is_active, true %>
+          <%= form.label :is_active_true, "会員" %>
+
+          <%= form.radio_button :is_active, false %>
+          <%= form.label :is_active_false, "退会" %>
+      </div>
+
+      <%= form.submit "更新" %>
+  <% end %>
+
+</div>

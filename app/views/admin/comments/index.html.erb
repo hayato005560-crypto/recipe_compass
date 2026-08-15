@@ -1,0 +1,7 @@
+<h1><%= @recipe.title %> へのコメント一覧</h1>
+
+<% @comments.each do |comment| %>
+    <%= comment.user.name %>
+    <%= comment.body %>
+    <%= button_to "削除", admin_recipe_comment_path(@recipe, comment), method: :delete %>
+<% end %>
