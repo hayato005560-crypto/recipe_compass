@@ -1,37 +1,76 @@
-<h1>新規登録</h1>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8 col-lg-6">
 
-<% if @user.errors.any? %>
-  <div>
-    <p><%= @user.errors.count %>件のエラーがあります。</p>
+    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
 
-    <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <h1 class="text-center fw-bold mb-4">
+        新規登録
+      </h1>
+
+      <% if @user.errors.any? %>
+        <div class="mb-4 text-danger">
+          <p class="fw-bold mb-2">
+            <%= @user.errors.count %>件のエラーがあります。
+          </p>
+
+          <ul class="mb-0">
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-    </ul>
-  </div>
-<% end %>
 
-<%= form_with model: @user do |form| %>
-  <div>
-    <%= form.label :name, "名前" %>
-    <%= form.text_field :name %>
-  </div>
+      <%= form_with model: @user do |form| %>
 
-  <div>
-    <%= form.label :email_address, "メールアドレス" %>
-    <%= form.email_field :email_address %>
-  </div>
+        <div class="mb-4">
+          <%= form.label :name,
+                         "名前",
+                         class: "form-label fw-bold" %>
 
-  <div>
-    <%= form.label :password, "パスワード" %>
-    <%= form.password_field :password %>
-  </div>
+          <%= form.text_field :name,
+                              class: "form-control",
+                              placeholder: "名前" %>
+        </div>
 
-  <div>
-    <%= form.label :password_confirmation, "パスワード確認" %>
-    <%= form.password_field :password_confirmation %>
-  </div>
+        <div class="mb-4">
+          <%= form.label :email_address,
+                         "メールアドレス",
+                         class: "form-label fw-bold" %>
 
-  <%= form.submit "登録" %>
-<% end %>
+          <%= form.email_field :email_address,
+                               class: "form-control",
+                               placeholder: "メールアドレス" %>
+        </div>
+
+        <div class="mb-4">
+          <%= form.label :password,
+                         "パスワード",
+                         class: "form-label fw-bold" %>
+
+          <%= form.password_field :password,
+                                  class: "form-control",
+                                  placeholder: "パスワード" %>
+        </div>
+
+        <div class="mb-4">
+          <%= form.label :password_confirmation,
+                         "パスワード確認",
+                         class: "form-label fw-bold" %>
+
+          <%= form.password_field :password_confirmation,
+                                  class: "form-control",
+                                  placeholder: "パスワード確認" %>
+        </div>
+
+        <div class="text-center">
+          <%= form.submit "登録",
+                          class: "btn btn-warning rounded-pill px-5" %>
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </div>
+</div>

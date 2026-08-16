@@ -1,13 +1,100 @@
-<h1>目的一覧</h1>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-10 col-lg-8">
 
-<%= form_with model: [:admin, @purpose] do |form| %>
-    <%= form.label :name, "目的名" %>
-    <%= form.text_field :name %>
-    <%= form.submit "追加" %>
-<% end %>
+    <h1 class="text-center fw-bold mb-4">
+      目的一覧
+    </h1>
 
-<% @purposes.each do |purpose| %>
-    <%= purpose.name %>
-    <%= link_to "編集", edit_admin_purpose_path(purpose) %>
-    <%= button_to "削除", admin_purpose_path(purpose), method: :delete %>
-<% end %>
+    <!-- 目的追加 -->
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-5">
+
+      <h2 class="h4 fw-bold mb-3">
+        新しい目的を追加
+      </h2>
+
+      <% if @purpose.errors.any? %>
+        <div class="text-danger mb-3">
+          <ul class="mb-0">
+            <% @purpose.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with model: [:admin, @purpose] do |form| %>
+
+        <div class="row g-3 align-items-end">
+
+          <div class="col-12 col-md">
+            <%= form.label :name,
+                           "目的名",
+                           class: "form-label fw-bold" %>
+
+            <%= form.text_field :name,
+                                class: "form-control",
+                                placeholder: "目的名を入力" %>
+          </div>
+
+          <div class="col-12 col-md-auto">
+            <%= form.submit "追加",
+                            class: "btn btn-warning rounded-pill px-4 w-100" %>
+          </div>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+    <!-- 登録済み目的 -->
+    <h2 class="h4 fw-bold mb-3">
+      登録済みの目的
+    </h2>
+
+    <% if @purposes.any? %>
+
+      <% @purposes.each do |purpose| %>
+
+        <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+            <div>
+              <span class="badge rounded-pill text-bg-warning fs-6 px-3 py-2">
+                <%= purpose.name %>
+              </span>
+            </div>
+
+            <div class="d-flex gap-2">
+
+              <%= link_to "編集",
+                          edit_admin_purpose_path(purpose),
+                          class: "btn btn-outline-warning rounded-pill px-4" %>
+
+              <%= button_to "削除",
+                            admin_purpose_path(purpose),
+                            method: :delete,
+                            class: "btn btn-outline-danger rounded-pill px-4",
+                            form_class: "d-inline" %>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      <% end %>
+
+    <% else %>
+
+      <div class="card border-0 shadow-sm rounded-4 p-5 text-center">
+        <p class="text-muted mb-0">
+          登録されている目的はありません。
+        </p>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

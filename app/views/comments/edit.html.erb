@@ -1,7 +1,24 @@
-<h1>コメント編集</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-7">
 
-<%= form_with model: [@recipe, @comment] do |form| %>
-  <%= form.label :body, "コメント" %>
-  <%= form.text_area :body %>
-  <%= form.submit "更新" %>
-<% end %>
+      <div class="card shadow-sm p-4">
+        <h1 class="text-center mb-4">コメント編集</h1>
+
+        <%= form_with model: [@recipe, @comment] do |form| %>
+          <div class="mb-4">
+            <%= form.label :body, "コメント", class: "form-label fw-bold" %>
+            <%= form.text_area :body,
+                               class: "form-control",
+                               rows: 8 %>
+          </div>
+
+          <div class="text-center">
+            <%= form.submit "更新", class: "btn btn-warning px-5" %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

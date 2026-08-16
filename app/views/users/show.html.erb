@@ -1,21 +1,117 @@
-<h1><%= @user.name %></h1>
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
 
-<h2>
-  自己紹介<br>
-  <%= @user.introduction %>
-</h2>
+    <!-- プロフィール全体 -->
+    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-5">
 
-<div>
-  <h2>投稿レシピ一覧</h2>
-  
-  <% @user.recipes.each do |recipe| %>
-    <%= recipe.title %>
-  <% end %>
-</div>
+      <h1 class="text-center fw-bold mb-4">
+        <%= @user.name %>
+      </h1>
 
-<div>
-  <% if @user == Current.user && !Current.user.is_guest? %>
-    <%= button_to "プロフィール編集", edit_user_path(@user), method: :get %>
-    <%= button_to "退会する", @user, method: :delete, form: { onsubmit: "return confirm('本当に退会しますか？')" } %>
-  <% end %>
+      <!-- 自己紹介 -->
+      <div class="card border-0 bg-light rounded-4 p-4 mb-4">
+        <h2 class="h4 fw-bold mb-3">
+          自己紹介
+        </h2>
+
+        <% if @user.introduction.present? %>
+          <%= simple_format(@user.introduction, class: "mb-0") %>
+        <% else %>
+          <p class="text-muted mb-0">
+            自己紹介はまだ登録されていません。
+          </p>
+        <% end %>
+      </div>
+
+      <!-- 投稿レシピ -->
+      <div class="card border-0 bg-light rounded-4 p-4 mb-4">
+        <h2 class="h4 fw-bold mb-4">
+          投稿レシピ一覧
+        </h2>
+
+        <% if @user.recipes.any? %>
+
+          <% @user.recipes.each do |recipe| %>
+
+            <%= link_to recipe_path(recipe),
+                        class: "user-recipe-card-link text-decoration-none text-dark" do %>
+
+              <div class="card border-0 shadow-sm rounded-4 mb-3 user-recipe-card">
+                <div class="row g-0 align-items-stretch">
+
+                  <!-- 画像 -->
+                  <div class="col-12 col-md-4">
+                    <% if recipe.image.attached? %>
+                      <%= image_tag recipe.image,
+                                    class: "user-recipe-image",
+                                    alt: recipe.title %>
+                    <% else %>
+                      <div class="user-recipe-image-placeholder d-flex align-items-center justify-content-center">
+                        <span class="text-muted">
+                          No Image
+                        </span>
+                      </div>
+                    <% end %>
+                  </div>
+
+                  <!-- レシピ情報 -->
+                  <div class="col-12 col-md-8">
+                    <div class="card-body p-4">
+
+                      <h3 class="h5 fw-bold mb-3">
+                        <%= recipe.title %>
+                      </h3>
+
+                      <% if recipe.purposes.any? %>
+                        <div class="d-flex flex-wrap gap-2">
+                          <% recipe.purposes.each do |purpose| %>
+                            <span class="badge rounded-pill text-bg-warning">
+                              <%= purpose.name %>
+                            </span>
+                          <% end %>
+                        </div>
+                      <% end %>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            <% end %>
+
+          <% end %>
+
+        <% else %>
+
+          <p class="text-muted mb-0">
+            まだ投稿されたレシピはありません。
+          </p>
+
+        <% end %>
+      </div>
+
+      <!-- 本人だけの操作 -->
+      <% if @user == Current.user && !Current.user.is_guest? %>
+        <div class="d-flex justify-content-end gap-3">
+
+          <%= link_to "プロフィール編集",
+                      edit_user_path(@user),
+                      class: "btn btn-outline-warning rounded-pill px-4" %>
+
+          <%= button_to "退会する",
+                        @user,
+                        method: :delete,
+                        class: "btn btn-outline-danger rounded-pill px-4",
+                        form_class: "d-inline",
+                        form: {
+                          onsubmit: "return confirm('本当に退会しますか？')"
+                        } %>
+
+        </div>
+      <% end %>
+
+    </div>
+
+  </div>
 </div>

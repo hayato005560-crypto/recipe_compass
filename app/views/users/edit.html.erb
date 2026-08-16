@@ -1,31 +1,63 @@
-<h1>ユーザー情報編集</h1>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8 col-lg-6">
 
-<div>
-  <% if @user.errors.any? %>
-    <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
+
+      <h1 class="text-center fw-bold mb-4">
+        ユーザー情報編集
+      </h1>
+
+      <% if @user.errors.any? %>
+        <div class="mb-4 text-danger">
+          <ul class="mb-0">
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-    </ul>
-  <% end %>
+
+      <%= form_with model: @user do |form| %>
+
+        <div class="mb-4">
+          <%= form.label :name,
+                         "ユーザーネーム",
+                         class: "form-label fw-bold" %>
+
+          <%= form.text_field :name,
+                              class: "form-control",
+                              placeholder: "ユーザーネーム" %>
+        </div>
+
+        <div class="mb-4">
+          <%= form.label :email_address,
+                         "メールアドレス",
+                         class: "form-label fw-bold" %>
+
+          <%= form.email_field :email_address,
+                               class: "form-control",
+                               placeholder: "メールアドレス" %>
+        </div>
+
+        <div class="mb-4">
+          <%= form.label :introduction,
+                         "自己紹介",
+                         class: "form-label fw-bold" %>
+
+          <%= form.text_area :introduction,
+                             class: "form-control",
+                             rows: 6,
+                             placeholder: "自己紹介を入力してください" %>
+        </div>
+
+        <div class="text-center">
+          <%= form.submit "更新",
+                          class: "btn btn-warning rounded-pill px-5" %>
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </div>
 </div>
-
-<%= form_with model: @user do |form| %>
-    <div>
-      <%= form.label :name, "ユーザーネーム" %>
-      <%= form.text_field :name %>
-    </div>
-
-    <div>
-      <%= form.label :email_address, "メールアドレス" %>
-      <%= form.email_field :email_address %>
-    </div>
-    
-    <div>
-      <%= form.label :introduction, "自己紹介" %>
-      <%= form.text_area :introduction %>
-    </div>
-
-    <%= form.submit "更新" %>
-
-<% end %>

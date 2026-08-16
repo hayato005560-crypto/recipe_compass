@@ -1,21 +1,107 @@
-<h1>レシピ一覧</h1>
-<%= form_with url: recipes_path, method: :get, data: { turbo_frame: "recipe_list" } do |form| %>
-  <%= form.select :target, [["すべて","all"],["タイトル","title"],["説明","body"],["材料","ingredients"],["作り方","steps"]] %>
-  <%= form.text_field :keyword %>
-  <%= form.select :purpose_id,
-    options_from_collection_for_select(@purposes, :id, :name),
-    include_blank: "指定なし" %>
-  <%= form.submit "検索" %>
-<% end %>
+<div class="container">
 
-<%= turbo_frame_tag "recipe_list" do  %>
-  <% @recipes.each do |recipe| %>
-    <p><%= link_to recipe.title, recipe_path(recipe), data: { turbo_frame: "_top" } %></p>
-    <p>投稿者: <%= recipe.user.name %></p>
-    
-    <% recipe.purposes.each do |purpose| %>
-      <p><%= purpose.name %></p>
-    <% end %>
+  <h1 class="text-center mb-4">レシピ一覧</h1>
+
+  <!-- 検索エリア -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-12 col-lg-10">
+      <div class="card border-0 shadow-sm rounded-4 p-4">
+
+        <%= form_with url: recipes_path,
+                      method: :get,
+                      data: { turbo_frame: "recipe_list" } do |form| %>
+
+          <div class="row g-3 align-items-end">
+
+            <div class="col-12 col-md-3">
+              <%= form.label :target, "検索対象", class: "form-label fw-bold" %>
+              <%= form.select :target,
+                  [["すべて", "all"],
+                   ["タイトル", "title"],
+                   ["説明", "body"],
+                   ["材料", "ingredients"],
+                   ["作り方", "steps"]],
+                  {},
+                  class: "form-select" %>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <%= form.label :keyword, "キーワード", class: "form-label fw-bold" %>
+              <%= form.text_field :keyword,
+                                  class: "form-control",
+                                  placeholder: "キーワードを入力" %>
+            </div>
+
+            <div class="col-12 col-md-3">
+              <%= form.label :purpose_id, "目的", class: "form-label fw-bold" %>
+              <%= form.select :purpose_id,
+                  options_from_collection_for_select(@purposes, :id, :name),
+                  { include_blank: "指定なし" },
+                  class: "form-select" %>
+            </div>
+
+            <div class="col-12 col-md-2">
+              <%= form.submit "検索", class: "btn btn-warning w-100" %>
+            </div>
+
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- レシピ一覧 -->
+  <%= turbo_frame_tag "recipe_list" do %>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10">
+
+        <% if @recipes.any? %>
+
+          <% @recipes.each do |recipe| %>
+
+            <%= link_to recipe_path(recipe),
+                        data: { turbo_frame: "_top" },
+                        class: "recipe-card-link text-decoration-none text-dark" do %>
+
+              <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 recipe-card">
+
+                <h2 class="h4 mb-3 fw-bold">
+                  <%= recipe.title %>
+                </h2>
+
+                <p class="mb-3">
+                  投稿者:
+                  <span class="fw-bold"><%= recipe.user.name %></span>
+                </p>
+
+                <% if recipe.purposes.any? %>
+                  <div class="d-flex flex-wrap gap-2">
+                    <% recipe.purposes.each do |purpose| %>
+                      <span class="badge rounded-pill text-bg-warning">
+                        <%= purpose.name %>
+                      </span>
+                    <% end %>
+                  </div>
+                <% end %>
+
+              </div>
+
+            <% end %>
+
+          <% end %>
+
+        <% else %>
+
+          <div class="card border-0 shadow-sm rounded-4 p-5 text-center">
+            <p class="mb-0">該当するレシピがありません。</p>
+          </div>
+
+        <% end %>
+
+      </div>
+    </div>
 
   <% end %>
-<% end %>
+</div>

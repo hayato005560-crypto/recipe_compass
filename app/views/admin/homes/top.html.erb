@@ -1,1 +1,80 @@
-<h1>管理者トップ</h1>
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
+
+    <!-- 管理者トップ -->
+    <div class="text-center mb-5">
+      <h1 class="fw-bold mb-3">
+        管理者トップ
+      </h1>
+
+      <p class="text-muted mb-0">
+        Recipe Compass のユーザー・レシピ・目的を管理できます。
+      </p>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- ユーザー管理 -->
+      <div class="col-12 col-md-4">
+        <%= link_to admin_users_path,
+                    class: "admin-menu-link text-decoration-none text-dark" do %>
+
+          <div class="card border-0 shadow-sm rounded-4 p-4 h-100 admin-menu-card text-center">
+
+            <h2 class="h4 fw-bold mb-3">
+              ユーザー管理
+            </h2>
+
+            <p class="text-muted mb-0">
+              登録ユーザーの確認・編集・会員ステータスの変更を行います。
+            </p>
+
+          </div>
+
+        <% end %>
+      </div>
+
+      <!-- レシピ管理 -->
+      <div class="col-12 col-md-4">
+        <%= link_to admin_recipes_path,
+                    class: "admin-menu-link text-decoration-none text-dark" do %>
+
+          <div class="card border-0 shadow-sm rounded-4 p-4 h-100 admin-menu-card text-center">
+
+            <h2 class="h4 fw-bold mb-3">
+              レシピ管理
+            </h2>
+
+            <p class="text-muted mb-0">
+              投稿されたレシピやコメントの確認・削除を行います。
+            </p>
+
+          </div>
+
+        <% end %>
+      </div>
+
+      <!-- 目的管理 -->
+      <div class="col-12 col-md-4">
+        <%= link_to admin_purposes_path,
+                    class: "admin-menu-link text-decoration-none text-dark" do %>
+
+          <div class="card border-0 shadow-sm rounded-4 p-4 h-100 admin-menu-card text-center">
+
+            <h2 class="h4 fw-bold mb-3">
+              目的管理
+            </h2>
+
+            <p class="text-muted mb-0">
+              レシピに設定する目的の追加・編集・削除を行います。
+            </p>
+
+          </div>
+
+        <% end %>
+      </div>
+
+    </div>
+
+  </div>
+</div>

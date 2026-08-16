@@ -1,9 +1,66 @@
-<h1>登録ユーザー 一覧 </h1>
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
 
-<% @users.each do |user| %>
-    <p><%= link_to user.name, admin_user_path(user) %></p>
-    <p><%= user.id %></p>
-    <p><%= user.email_address %></p>
-    <p><%= user.role %></p>
-    <p><%= user.is_active %></p>
-<% end %>
+    <h1 class="text-center fw-bold mb-4">
+      登録ユーザー一覧
+    </h1>
+
+    <% @users.each do |user| %>
+
+      <%= link_to admin_user_path(user),
+                  class: "admin-user-card-link text-decoration-none text-dark" do %>
+
+        <div class="card border-0 shadow-sm rounded-4 p-4 mb-3 admin-user-card">
+
+          <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+            <div>
+              <h2 class="h4 fw-bold mb-3">
+                <%= user.name %>
+              </h2>
+
+              <p class="mb-2">
+                <span class="fw-bold">ユーザーID：</span>
+                <%= user.id %>
+              </p>
+
+              <p class="mb-2">
+                <span class="fw-bold">E-mail：</span>
+                <%= user.email_address %>
+              </p>
+            </div>
+
+            <div class="d-flex flex-column align-items-end gap-2">
+
+              <% if user.admin? %>
+                <span class="badge rounded-pill text-bg-dark px-3 py-2">
+                  管理者
+                </span>
+              <% else %>
+                <span class="badge rounded-pill text-bg-secondary px-3 py-2">
+                  一般ユーザー
+                </span>
+              <% end %>
+
+              <% if user.is_active %>
+                <span class="badge rounded-pill text-bg-success px-3 py-2">
+                  会員
+                </span>
+              <% else %>
+                <span class="badge rounded-pill text-bg-danger px-3 py-2">
+                  退会
+                </span>
+              <% end %>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      <% end %>
+
+    <% end %>
+
+  </div>
+</div>
