@@ -1,31 +1,86 @@
-<h1>ユーザー情報 編集</h1>
-<div>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8 col-lg-6">
 
-  <%= form_with model: [:admin, @user] do |form| %>
-      <div>
-          <%= form.label :name, "ユーザー名" %>
-          <%= form.text_field :name %>
-      </div>
+    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
 
-      <div>
-          <%= form.label :email_address, "メールアドレス" %>
-          <%= form.email_field :email_address %>
-      </div>
+      <h1 class="text-center fw-bold mb-4">
+        ユーザー情報編集
+      </h1>
 
-      <div>
-          <%= form.label :introduction, "自己紹介" %>
-          <%= form.text_field :introduction %>
-      </div>
+      <%= form_with model: [:admin, @user] do |form| %>
 
-      <div>
-          <%= form.radio_button :is_active, true %>
-          <%= form.label :is_active_true, "会員" %>
+        <!-- ユーザー名 -->
+        <div class="mb-4">
+          <%= form.label :name,
+                         "ユーザー名",
+                         class: "form-label fw-bold" %>
 
-          <%= form.radio_button :is_active, false %>
-          <%= form.label :is_active_false, "退会" %>
-      </div>
+          <%= form.text_field :name,
+                              class: "form-control" %>
+        </div>
 
-      <%= form.submit "更新" %>
-  <% end %>
+        <!-- メールアドレス -->
+        <div class="mb-4">
+          <%= form.label :email_address,
+                         "メールアドレス",
+                         class: "form-label fw-bold" %>
 
+          <%= form.email_field :email_address,
+                               class: "form-control" %>
+        </div>
+
+        <!-- 自己紹介 -->
+        <div class="mb-4">
+          <%= form.label :introduction,
+                         "自己紹介",
+                         class: "form-label fw-bold" %>
+
+          <%= form.text_area :introduction,
+                             class: "form-control",
+                             rows: 5 %>
+        </div>
+
+        <!-- 会員ステータス -->
+        <div class="mb-5">
+          <p class="form-label fw-bold mb-3">
+            ユーザーステータス
+          </p>
+
+          <div class="d-flex gap-3">
+
+            <%= form.radio_button :is_active,
+                                  true,
+                                  class: "btn-check",
+                                  id: "user_is_active_true",
+                                  autocomplete: "off" %>
+
+            <%= form.label :is_active_true,
+                           "会員",
+                           class: "btn btn-outline-primary rounded-pill px-4" %>
+
+
+            <%= form.radio_button :is_active,
+                                  false,
+                                  class: "btn-check",
+                                  id: "user_is_active_false",
+                                  autocomplete: "off" %>
+
+            <%= form.label :is_active_false,
+                           "退会",
+                           class: "btn btn-outline-danger rounded-pill px-4" %>
+
+          </div>
+        </div>
+
+        <!-- 更新 -->
+        <div class="text-center">
+          <%= form.submit "更新",
+                          class: "btn btn-warning rounded-pill px-5" %>
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </div>
 </div>

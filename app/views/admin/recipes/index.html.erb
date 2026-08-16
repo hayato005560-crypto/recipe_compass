@@ -1,6 +1,69 @@
-<h1>レシピ一覧</h1>
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
 
-<% @recipes.each do |recipe| %>
-    <%= link_to recipe.title, admin_recipe_path(recipe) %>
-    <%= recipe.user.name %>
-<% end %>
+    <h1 class="text-center fw-bold mb-4">
+      レシピ一覧
+    </h1>
+
+    <% if @recipes.any? %>
+
+      <% @recipes.each do |recipe| %>
+
+        <%= link_to admin_recipe_path(recipe),
+                    class: "admin-recipe-card-link text-decoration-none text-dark" do %>
+
+          <div class="card border-0 shadow-sm rounded-4 p-4 mb-3 admin-recipe-card">
+
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+              <div>
+                <h2 class="h4 fw-bold mb-3">
+                  <%= recipe.title %>
+                </h2>
+
+                <p class="mb-2">
+                  <span class="fw-bold">レシピID：</span>
+                  <%= recipe.id %>
+                </p>
+
+                <p class="mb-2">
+                  <span class="fw-bold">投稿者：</span>
+                  <%= recipe.user.name %>
+                </p>
+
+                <p class="mb-0">
+                  <span class="fw-bold">調理時間：</span>
+                  <%= recipe.cooking_time %>分
+                </p>
+              </div>
+
+              <% if recipe.purposes.any? %>
+                <div class="d-flex flex-wrap justify-content-end gap-2">
+                  <% recipe.purposes.each do |purpose| %>
+                    <span class="badge rounded-pill text-bg-warning px-3 py-2">
+                      <%= purpose.name %>
+                    </span>
+                  <% end %>
+                </div>
+              <% end %>
+
+            </div>
+
+          </div>
+
+        <% end %>
+
+      <% end %>
+
+    <% else %>
+
+      <div class="card border-0 shadow-sm rounded-4 p-5 text-center">
+        <p class="mb-0 text-muted">
+          投稿されたレシピはありません。
+        </p>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

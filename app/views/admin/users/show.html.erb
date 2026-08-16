@@ -1,23 +1,90 @@
-<h1>ユーザー詳細情報</h1>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-10 col-lg-8">
 
-<h2>ユーザー名<br>
-  <%= @user.name %>
-</h2>
+    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
 
-<p><%= @user.id %></p>
+      <h1 class="text-center fw-bold mb-4">
+        ユーザー詳細情報
+      </h1>
 
-<p><%= @user.email_address %></p>
+      <!-- ユーザー基本情報 -->
+      <div class="card border-0 bg-light rounded-4 p-4 mb-4">
 
-<p><%= @user.role %></p>
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
 
-<% if @user.is_active %>
-  <p>会員</p>
-<% else %>
-  <p>退会</p>
-<% end %>
+          <div>
+            <p class="text-muted mb-1">
+              ユーザー名
+            </p>
 
-<p><%= @user.introduction %></p>
+            <h2 class="h3 fw-bold mb-0">
+              <%= @user.name %>
+            </h2>
+          </div>
 
-<div>
-  <%= link_to "編集", edit_admin_user_path(@user) %>
+          <div class="d-flex flex-wrap gap-2">
+
+            <% if @user.admin? %>
+              <span class="badge rounded-pill text-bg-dark px-3 py-2">
+                管理者
+              </span>
+            <% else %>
+              <span class="badge rounded-pill text-bg-secondary px-3 py-2">
+                一般ユーザー
+              </span>
+            <% end %>
+
+            <% if @user.is_active %>
+              <span class="badge rounded-pill text-bg-success px-3 py-2">
+                会員
+              </span>
+            <% else %>
+              <span class="badge rounded-pill text-bg-danger px-3 py-2">
+                退会
+              </span>
+            <% end %>
+
+          </div>
+
+        </div>
+
+        <div class="mb-3">
+          <span class="fw-bold">ユーザーID：</span>
+          <%= @user.id %>
+        </div>
+
+        <div>
+          <span class="fw-bold">E-mail：</span>
+          <%= @user.email_address %>
+        </div>
+
+      </div>
+
+      <!-- 自己紹介 -->
+      <div class="card border-0 bg-light rounded-4 p-4 mb-4">
+
+        <h2 class="h4 fw-bold mb-3">
+          自己紹介
+        </h2>
+
+        <% if @user.introduction.present? %>
+          <%= simple_format(@user.introduction, class: "mb-0") %>
+        <% else %>
+          <p class="text-muted mb-0">
+            自己紹介は登録されていません。
+          </p>
+        <% end %>
+
+      </div>
+
+      <!-- 編集 -->
+      <div class="text-end">
+        <%= link_to "ユーザー情報を編集",
+                    edit_admin_user_path(@user),
+                    class: "btn btn-outline-warning rounded-pill px-4" %>
+      </div>
+
+    </div>
+
+  </div>
 </div>

@@ -1,9 +1,52 @@
-<%= form_with url: session_path do |form| %>
-  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %><br>
-  <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br>
-  <%= form.submit "Sign in" %>
-<% end %>
-<br>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8 col-lg-5">
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
+
+      <h1 class="text-center fw-bold mb-4">
+        ログイン画面
+      </h1>
+
+      <%= form_with url: session_path do |form| %>
+
+        <div class="mb-4">
+          <%= form.label :email_address,
+                         "メールアドレス",
+                         class: "form-label fw-bold" %>
+
+          <%= form.email_field :email_address,
+                               required: true,
+                               autofocus: true,
+                               autocomplete: "username",
+                               placeholder: "メールアドレス",
+                               value: params[:email_address],
+                               class: "form-control" %>
+        </div>
+
+        <div class="mb-4">
+          <%= form.label :password,
+                         "パスワード",
+                         class: "form-label fw-bold" %>
+
+          <%= form.password_field :password,
+                                  required: true,
+                                  autocomplete: "current-password",
+                                  placeholder: "パスワード",
+                                  maxlength: 72,
+                                  class: "form-control" %>
+        </div>
+
+        <div class="text-center">
+          <%= form.submit "ログイン",
+                          class: "btn btn-warning rounded-pill px-5" %>
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </div>
+</div>
 
 <%# TODO: パスワード再設定機能を実装するときに有効化 %>
 <%#= link_to "Forgot password?", new_password_path %>

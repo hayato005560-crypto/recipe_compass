@@ -1,21 +1,104 @@
-<h1>レシピ詳細</h1>
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
 
-<h2><%= @recipe.title %></h2>
+    <!-- レシピ全体 -->
+    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4">
 
-<%= @recipe.user.name %>
+      <h1 class="text-center fw-bold mb-4">
+        レシピ詳細
+      </h1>
 
-<%= @recipe.cooking_time %>
+      <!-- タイトル・Purpose -->
+      <div class="text-center mb-4">
+        <h2 class="fw-bold mb-3">
+          <%= @recipe.title %>
+        </h2>
 
-<%= @recipe.body %>
+        <% if @recipe.purposes.any? %>
+          <div class="d-flex flex-wrap justify-content-center gap-2">
+            <% @recipe.purposes.each do |purpose| %>
+              <span class="badge rounded-pill text-bg-warning px-3 py-2">
+                <%= purpose.name %>
+              </span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
 
-<%= @recipe.steps %>
+      <!-- 画像 -->
+      <% if @recipe.image.attached? %>
+        <div class="mb-4">
+          <%= image_tag @recipe.image,
+                        class: "w-100 rounded-4 recipe-show-image",
+                        alt: @recipe.title %>
+        </div>
+      <% end %>
 
-<%= @recipe.ingredients %>
+      <!-- 基本情報 -->
+      <div class="card border-0 bg-light rounded-4 p-4 mb-3">
+        <h3 class="h4 fw-bold mb-3">
+          基本情報
+        </h3>
 
-<div>
-  <%= link_to "レシピへのコメント一覧", admin_recipe_comments_path(@recipe) %>
-</div>
+        <p class="mb-2">
+          <span class="fw-bold">レシピID：</span>
+          <%= @recipe.id %>
+        </p>
 
-<div>
-  <%= button_to "削除", admin_recipe_path(@recipe), method: :delete %>
+        <p class="mb-2">
+          <span class="fw-bold">投稿者：</span>
+          <%= @recipe.user.name %>
+        </p>
+
+        <p class="mb-0">
+          <span class="fw-bold">調理時間：</span>
+          <%= @recipe.cooking_time %>分
+        </p>
+      </div>
+
+      <!-- 材料 -->
+      <div class="card border-0 bg-light rounded-4 p-4 mb-3">
+        <h3 class="h4 fw-bold mb-3">
+          材料
+        </h3>
+
+        <%= simple_format(@recipe.ingredients, class: "mb-0") %>
+      </div>
+
+      <!-- 作り方 -->
+      <div class="card border-0 bg-light rounded-4 p-4 mb-3">
+        <h3 class="h4 fw-bold mb-3">
+          作り方
+        </h3>
+
+        <%= simple_format(@recipe.steps, class: "mb-0") %>
+      </div>
+
+      <!-- 補足説明 -->
+      <div class="card border-0 bg-light rounded-4 p-4 mb-4">
+        <h3 class="h4 fw-bold mb-3">
+          補足説明
+        </h3>
+
+        <%= simple_format(@recipe.body, class: "mb-0") %>
+      </div>
+
+      <!-- 管理操作 -->
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+        <%= link_to "コメント一覧",
+                    admin_recipe_comments_path(@recipe),
+                    class: "btn btn-outline-warning rounded-pill px-4" %>
+
+        <%= button_to "レシピを削除",
+                      admin_recipe_path(@recipe),
+                      method: :delete,
+                      class: "btn btn-outline-danger rounded-pill px-4",
+                      form_class: "d-inline" %>
+
+      </div>
+
+    </div>
+
+  </div>
 </div>

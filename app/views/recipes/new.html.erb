@@ -1,50 +1,113 @@
-<h1>新規レシピ投稿画面</h1>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-10 col-lg-8">
 
-<div>
-  <% if @recipe.errors.any? %>
-    <ul>
-      <% @recipe.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
+
+      <h1 class="text-center fw-bold mb-4">
+        新規レシピ投稿
+      </h1>
+
+      <% if @recipe.errors.any? %>
+        <div class="mb-4">
+          <ul class="text-danger mb-0">
+            <% @recipe.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-    </ul>
-  <% end %>
-</div>
 
-<%= form_with model: @recipe do |form| %>
-    <div>
-      <%= form.label :title, "レシピ名" %>
-      <%= form.text_field :title %>
+      <%= form_with model: @recipe do |form| %>
+
+        <!-- レシピ名 -->
+        <div class="mb-4">
+          <%= form.label :title, "レシピ名", class: "form-label fw-bold" %>
+          <%= form.text_field :title, class: "form-control" %>
+        </div>
+
+        <!-- 画像 -->
+        <div class="mb-4">
+          <%= form.label :image, "画像", class: "form-label fw-bold" %>
+
+          <div class="mb-3">
+            <img id="recipe-image-preview"
+                 class="w-100 rounded-4 recipe-edit-image d-none"
+                 alt="選択中のレシピ画像">
+          </div>
+
+          <%= form.file_field :image,
+                              class: "form-control",
+                              id: "recipe-image-input",
+                              accept: "image/*" %>
+
+          <p class="text-muted small mt-2 mb-0">
+            画像を選択すると、上にプレビューが表示されます。
+          </p>
+        </div>
+
+        <!-- 目的 -->
+        <div class="mb-4">
+          <p class="form-label fw-bold">目的</p>
+
+          <div class="d-flex flex-wrap gap-3">
+            <%= form.collection_check_boxes :purpose_ids,
+                                            Purpose.all,
+                                            :id,
+                                            :name do |box| %>
+              <div class="form-check">
+                <%= box.check_box class: "form-check-input" %>
+                <%= box.label class: "form-check-label" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- 調理時間 -->
+        <div class="mb-4">
+          <%= form.label :cooking_time,
+                         "調理時間（分）",
+                         class: "form-label fw-bold" %>
+
+          <%= form.number_field :cooking_time,
+                                min: 1,
+                                class: "form-control" %>
+        </div>
+
+        <!-- 材料 -->
+        <div class="mb-4">
+          <%= form.label :ingredients, "材料", class: "form-label fw-bold" %>
+
+          <%= form.text_area :ingredients,
+                             class: "form-control",
+                             rows: 6 %>
+        </div>
+
+        <!-- 作り方 -->
+        <div class="mb-4">
+          <%= form.label :steps, "作り方", class: "form-label fw-bold" %>
+
+          <%= form.text_area :steps,
+                             class: "form-control",
+                             rows: 8 %>
+        </div>
+
+        <!-- 補足説明 -->
+        <div class="mb-4">
+          <%= form.label :body, "補足説明", class: "form-label fw-bold" %>
+
+          <%= form.text_area :body,
+                             class: "form-control",
+                             rows: 5 %>
+        </div>
+
+        <div class="text-center">
+          <%= form.submit "投稿",
+                          class: "btn btn-warning rounded-pill px-5" %>
+        </div>
+
+      <% end %>
+
     </div>
 
-  <div>
-    <%= form.label :image, "画像" %>
-    <%= form.file_field :image %>
   </div>
-
-    <div>
-      <p>目的</p>
-      <%= form.collection_check_boxes :purpose_ids, Purpose.all, :id, :name %>
-    </div>
-
-    <div>
-      <%= form.label :cooking_time, "調理時間(分)" %>
-      <%= form.number_field :cooking_time, min: 1 %>
-    </div>
-
-    <div>
-      <%= form.label :ingredients, "材料" %>
-      <%= form.text_area :ingredients %>
-    </div>
-    
-    <div>
-      <%= form.label :steps, "作り方" %>
-      <%= form.text_area :steps %>
-    </div>
-
-    <div>
-      <%= form.label :body, "補足説明" %>
-      <%= form.text_area :body %>
-    </div>
-
-    <%= form.submit "投稿" %>
-<% end %>
+</div>
