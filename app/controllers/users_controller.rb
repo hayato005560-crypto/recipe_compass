@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
     if @user.save
       start_new_session_for @user
-      redirect_to recipes_path
+      redirect_to recipes_path, notice: "新規登録が完了しました。"
     else
       render :new, status: :unprocessable_entity
     end
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     @user.sessions.destroy_all
 
 
-    redirect_to root_path
+    redirect_to root_pathredirect_to root_path, notice: "退会処理が完了しました。"
   end
 
   private

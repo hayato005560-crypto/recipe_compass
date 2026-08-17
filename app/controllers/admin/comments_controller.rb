@@ -10,6 +10,6 @@ class Admin::CommentsController < Admin::BaseController
         @comment = @recipe.comments.find(params[:id])
 
         @comment.destroy
-        redirect_to admin_recipe_comments_path(@recipe)
+        redirect_to admin_recipe_comments_path(@recipe), notice: "コメントを削除しました。"
     end
 end

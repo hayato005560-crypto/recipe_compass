@@ -1,0 +1,30 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      recipe: レシピ
+      purpose: 目的
+      comment: コメント
+
+    attributes:
+      user:
+        name: 名前
+        email_address: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード確認
+        introduction: 自己紹介
+        role: 権限
+        is_guest: ゲスト
+        is_active: 会員ステータス
+
+      recipe:
+        title: タイトル
+        ingredients: 材料
+        steps: 作り方
+        cooking_time: 調理時間
+
+      purpose:
+        name: 目的名
+
+      comment:
+        body: コメント

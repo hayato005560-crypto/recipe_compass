@@ -31,7 +31,12 @@
                             admin_recipe_comment_path(@recipe, comment),
                             method: :delete,
                             class: "btn btn-outline-danger rounded-pill px-4",
-                            form_class: "d-inline" %>
+                            form_class: "d-inline",
+                            form: {
+                              data: {
+                                turbo_confirm: "このコメントを削除しますか？"
+                              }
+                            } %>
             </div>
 
           </div>

@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   allow_unauthenticated_access only: %i[new create guest]
-  rate_limit to: 10, within: 3.minutes, only: %i[create guest], with: -> { redirect_to new_session_path, alert: "Try again later." }
+  rate_limit to: 10, within: 3.minutes, only: %i[create guest], with: -> { redirect_to new_session_path, alert: "しばらく時間をおいてから再度お試しください" }
 
   def new
   end
@@ -10,9 +10,9 @@ class SessionsController < ApplicationController
 
     if user&.is_active?
       start_new_session_for user
-      redirect_to after_authentication_url
+      redirect_to after_authentication_url, notice: "ログインしました。"
     else
-      redirect_to new_session_path, alert: "Try another email address or password."
+      redirect_to new_session_path, alert: "メールアドレスまたはパスワードが正しくありません。"
     end
   end
 
@@ -31,6 +31,6 @@ class SessionsController < ApplicationController
 
   def destroy
     terminate_session
-    redirect_to new_session_path, status: :see_other
+    redirect_to new_session_path, notice: "ログアウトしました。", status: :see_other
   end
 end

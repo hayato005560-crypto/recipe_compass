@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
         @comment.user = Current.user
 
         if @comment.save
-          redirect_to recipe_path(@recipe)
+          redirect_to recipe_path(@recipe), notice: "コメントを投稿しました。"
         else
           @comments = @recipe.comments.where.not(id: nil)
           render "recipes/show", status: :unprocessable_entity
@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
 
         if Current.user == @comment.user
             @comment.destroy
-            redirect_to recipe_path(@recipe)
+            redirect_to recipe_path(@recipe), notice: "コメントを削除しました。"
         else
             redirect_to recipe_path(@recipe), alert: "自分のコメントのみ削除できます"
         end

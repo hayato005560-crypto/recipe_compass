@@ -105,8 +105,10 @@
                         class: "btn btn-outline-danger rounded-pill px-4",
                         form_class: "d-inline",
                         form: {
-                          onsubmit: "return confirm('本当に退会しますか？')"
-                        } %>
+                          data: {
+                            turbo_confirm: "本当に退会しますか？"
+                          }
+                        }
 
         </div>
       <% end %>

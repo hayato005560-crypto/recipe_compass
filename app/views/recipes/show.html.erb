@@ -55,10 +55,15 @@
                       class: "btn btn-outline-warning rounded-pill px-4" %>
 
           <%= button_to "削除",
-                        @recipe,
+                        recipe_path(@recipe),
                         method: :delete,
-                        class: "btn btn-outline-danger rounded-pill px-4",
-                        form_class: "d-inline" %>
+                        class: "btn btn-outline-danger btn-sm rounded-pill px-3",
+                        form_class: "d-inline",
+                        form: {
+                          data: {
+                            turbo_confirm: "このレシピを削除しますか？"
+                          }
+                        } %>
         </div>
       <% end %>
 
@@ -93,7 +98,12 @@
                               recipe_comment_path(@recipe, comment),
                               method: :delete,
                               class: "btn btn-outline-danger btn-sm rounded-pill px-3",
-                              form_class: "d-inline" %>
+                              form_class: "d-inline",
+                                form: {
+                                  data: {
+                                    turbo_confirm: "このコメントを削除しますか？"
+                                  }
+                                } %>
 
               </div>
             <% end %>
@@ -110,6 +120,15 @@
       <% end %>
     </section>
 
+    <% if @comment&.errors&.any? %>
+      <div class="text-danger mb-3">
+        <ul class="mb-0">
+          <% @comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
     <!-- コメント投稿 -->
     <% if Current.user.present? && !Current.user.is_guest? %>
