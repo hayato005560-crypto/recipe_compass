@@ -22,6 +22,7 @@ ja:
         ingredients: 材料
         steps: 作り方
         cooking_time: 調理時間
+        image: 画像
 
       purpose:
         name: 目的名

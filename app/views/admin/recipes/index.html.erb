@@ -12,40 +12,66 @@
         <%= link_to admin_recipe_path(recipe),
                     class: "admin-recipe-card-link text-decoration-none text-dark" do %>
 
-          <div class="card border-0 shadow-sm rounded-4 p-4 mb-3 admin-recipe-card">
+          <div class="card border-0 shadow-sm rounded-4 mb-4 admin-recipe-card overflow-hidden">
 
-            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+            <div class="row g-0">
 
-              <div>
-                <h2 class="h4 fw-bold mb-3">
-                  <%= recipe.title %>
-                </h2>
-
-                <p class="mb-2">
-                  <span class="fw-bold">レシピID：</span>
-                  <%= recipe.id %>
-                </p>
-
-                <p class="mb-2">
-                  <span class="fw-bold">投稿者：</span>
-                  <%= recipe.user.name %>
-                </p>
-
-                <p class="mb-0">
-                  <span class="fw-bold">調理時間：</span>
-                  <%= recipe.cooking_time %>分
-                </p>
+              <!-- レシピ画像 -->
+              <div class="col-12 col-md-4">
+                <% if recipe.image.attached? %>
+                  <%= image_tag recipe.image,
+                                class: "admin-recipe-index-image",
+                                alt: recipe.title %>
+                <% else %>
+                  <div class="admin-recipe-index-image-placeholder d-flex align-items-center justify-content-center">
+                    <span class="text-muted">
+                      No Image
+                    </span>
+                  </div>
+                <% end %>
               </div>
 
-              <% if recipe.purposes.any? %>
-                <div class="d-flex flex-wrap justify-content-end gap-2">
-                  <% recipe.purposes.each do |purpose| %>
-                    <span class="badge rounded-pill text-bg-warning px-3 py-2">
-                      <%= purpose.name %>
-                    </span>
-                  <% end %>
+              <!-- レシピ情報 -->
+              <div class="col-12 col-md-8">
+                <div class="card-body p-4 h-100">
+
+                  <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+                    <div>
+                      <h2 class="h4 fw-bold mb-3">
+                        <%= recipe.title %>
+                      </h2>
+
+                      <p class="mb-2">
+                        <span class="fw-bold">レシピID：</span>
+                        <%= recipe.id %>
+                      </p>
+
+                      <p class="mb-2">
+                        <span class="fw-bold">投稿者：</span>
+                        <%= recipe.user.name %>
+                      </p>
+
+                      <p class="mb-0">
+                        <span class="fw-bold">調理時間：</span>
+                        <%= recipe.cooking_time %>分
+                      </p>
+                    </div>
+
+                    <% if recipe.purposes.any? %>
+                      <div class="d-flex flex-wrap justify-content-md-end gap-2">
+                        <% recipe.purposes.each do |purpose| %>
+                          <span class="badge rounded-pill text-bg-warning px-3 py-2">
+                            <%= purpose.name %>
+                          </span>
+                        <% end %>
+                      </div>
+                    <% end %>
+
+                  </div>
+
                 </div>
-              <% end %>
+              </div>
 
             </div>
 

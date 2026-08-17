@@ -8,4 +8,12 @@ class Recipe < ApplicationRecord
   validates :title, :ingredients, :steps, :cooking_time, presence: true
   validates :cooking_time, numericality: { only_integer: true, greater_than: 0 }
 
+  validate :image_must_be_attached
+
+  private
+
+  def image_must_be_attached
+    errors.add(:image, :blank) unless image.attached?
+  end
+
 end

@@ -2,10 +2,12 @@
 <html>
   <head>
     <title><%= content_for(:title) || "Recipe Compass" %></title>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Recipe Compass">
     <meta name="mobile-web-app-capable" content="yes">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -18,75 +20,144 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous">
+      crossorigin="anonymous"
+    >
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous">
-    </script>
 
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous">
+    </script>
   </head>
 
   <body>
-    <header class="navbar navbar-expand-lg recipe-navbar">
+    <header class="navbar navbar-expand-md recipe-navbar">
       <div class="container-fluid recipe-navbar-inner">
 
+        <!-- ロゴ -->
         <%= link_to root_path, class: "navbar-brand" do %>
-          <%= image_tag "recipe_compass_logo.png", alt: "Recipe Compass", class: "recipe-logo" %>
+          <%= image_tag "recipe_compass_logo.png",
+                        alt: "Recipe Compass",
+                        class: "recipe-logo" %>
         <% end %>
 
-        <div class="navbar-nav ms-auto flex-row align-items-center gap-3">
-          <% if Current.user %>
+        <!-- スマホ用ハンバーガーボタン -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#recipeNavbar"
+          aria-controls="recipeNavbar"
+          aria-expanded="false"
+          aria-label="メニューを開く">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <% if Current.user.admin? %>
+        <!-- 開閉されるメニュー -->
+        <div class="collapse navbar-collapse" id="recipeNavbar">
+          <div class="navbar-nav ms-auto align-items-md-center gap-md-3">
 
-              <%= link_to "管理者トップ", admin_root_path, class: "nav-link" %>
-              <%= link_to "ユーザー一覧", admin_users_path, class: "nav-link" %>
-              <%= link_to "レシピ一覧", admin_recipes_path, class: "nav-link" %>
-              <%= link_to "目的一覧", admin_purposes_path, class: "nav-link" %>
-              <%= button_to "ログアウト", session_path, method: :delete, class: "nav-link btn btn-link p-0", form_class: "d-flex align-items-center" %>
+            <% if Current.user %>
 
-            <% elsif Current.user.is_guest? %>
+              <% if Current.user.admin? %>
+                <%= link_to "管理者トップ",
+                            admin_root_path,
+                            class: "nav-link" %>
 
-              <%= link_to "投稿一覧", recipes_path, class: "nav-link" %>
-              <%= button_to "ログアウト", session_path, method: :delete, class: "nav-link btn btn-link p-0", form_class: "d-flex align-items-center" %>
+                <%= link_to "ユーザー一覧",
+                            admin_users_path,
+                            class: "nav-link" %>
+
+                <%= link_to "レシピ一覧",
+                            admin_recipes_path,
+                            class: "nav-link" %>
+
+                <%= link_to "目的一覧",
+                            admin_purposes_path,
+                            class: "nav-link" %>
+
+                <%= button_to "ログアウト",
+                              session_path,
+                              method: :delete,
+                              class: "nav-link btn btn-link p-0",
+                              form_class: "d-flex align-items-center" %>
+
+              <% elsif Current.user.is_guest? %>
+                <%= link_to "投稿一覧",
+                            recipes_path,
+                            class: "nav-link" %>
+
+                <%= button_to "ログアウト",
+                              session_path,
+                              method: :delete,
+                              class: "nav-link btn btn-link p-0",
+                              form_class: "d-flex align-items-center" %>
+
+              <% else %>
+                <%= link_to "投稿一覧",
+                            recipes_path,
+                            class: "nav-link" %>
+
+                <%= link_to "レシピの投稿",
+                            new_recipe_path,
+                            class: "nav-link" %>
+
+                <%= link_to "マイページ",
+                            user_path(Current.user),
+                            class: "nav-link" %>
+
+                <%= button_to "ログアウト",
+                              session_path,
+                              method: :delete,
+                              class: "nav-link btn btn-link p-0",
+                              form_class: "d-flex align-items-center" %>
+              <% end %>
 
             <% else %>
+              <%= link_to "ログイン",
+                          new_session_path,
+                          class: "nav-link" %>
 
-              <%= link_to "投稿一覧", recipes_path, class: "nav-link" %>
-              <%= link_to "レシピの投稿", new_recipe_path, class: "nav-link" %>
-              <%= link_to "マイページ", user_path(Current.user), class: "nav-link" %>
-              <%= button_to "ログアウト", session_path, method: :delete, class: "nav-link btn btn-link p-0", form_class: "d-flex align-items-center" %>
+              <%= link_to "新規登録",
+                          new_user_path,
+                          class: "nav-link" %>
 
+              <%= button_to "ゲストログイン",
+                            guest_session_path,
+                            class: "nav-link btn btn-link p-0",
+                            form_class: "d-flex align-items-center" %>
             <% end %>
 
-          <% else %>
-
-            <%= link_to "ログイン", new_session_path, class: "nav-link" %>
-            <%= link_to "新規登録", new_user_path, class: "nav-link" %>
-            <%= button_to "ゲストログイン", guest_session_path, class: "nav-link btn btn-link p-0", form_class: "d-flex align-items-center" %>
-
-          <% end %>
+          </div>
         </div>
+
       </div>
     </header>
 
+    <!-- フラッシュメッセージ -->
     <div class="container mt-3">
       <% if notice %>
-        <p class="text-success fw-bold"><%= notice %></p>
+        <p class="text-success fw-bold">
+          <%= notice %>
+        </p>
       <% end %>
 
       <% if alert %>
-        <p class="text-danger fw-bold"><%= alert %></p>
+        <p class="text-danger fw-bold">
+          <%= alert %>
+        </p>
       <% end %>
     </div>
 
+    <!-- メインコンテンツ -->
     <main class="container my-4">
       <%= yield %>
     </main>
