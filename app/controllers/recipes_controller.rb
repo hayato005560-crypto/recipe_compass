@@ -30,15 +30,20 @@ class RecipesController < ApplicationController
     end
 
     if purpose_id.present?
-      @recipes = @recipes.joins(:purposes).where(
-        purposes: { id: purpose_id }
-      )
+      @recipes = @recipes.joins(:purposes).where( purposes: { id: purpose_id } )
     end
   end
 
   def show
     @recipe = Recipe.find(params[:id])
     @comments = @recipe.comments
+
+    if Current.user.present? &&
+       !Current.user.is_guest? &&
+       Current.user != @recipe.user
+
+      @rating = @recipe.ratings.find_or_initialize_by(user: Current.user)
+    end
   end
 
   def new

@@ -103,7 +103,7 @@
 
                   <!-- レシピ情報 -->
                   <div class="col-12 col-md-8">
-                    <div class="card-body p-4 h-100">
+                    <div class="card-body p-4 h-100 d-flex flex-column">
 
                       <h2 class="h4 fw-bold mb-3">
                         <%= recipe.title %>
@@ -129,7 +129,24 @@
                         </div>
                       <% end %>
 
+                      <div class="mt-auto pt-3 text-end">
+                        <% if recipe.rating_count > 0 %>
+                          <span class="fw-bold fs-5">
+                            ★ <%= recipe.average_rating %>
+                          </span>
+
+                          <span class="text-muted">
+                           （<%= recipe.rating_count %>件）
+                          </span>
+                        <% else %>
+                          <span class="text-muted">
+                            まだ評価はありません
+                          </span>
+                        <% end %>
+                      </div>
+
                     </div>
+                    
                   </div>
 
                 </div>

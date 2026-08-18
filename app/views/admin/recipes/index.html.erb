@@ -18,6 +18,7 @@
 
               <!-- レシピ画像 -->
               <div class="col-12 col-md-4">
+
                 <% if recipe.image.attached? %>
                   <%= image_tag recipe.image,
                                 class: "admin-recipe-index-image",
@@ -29,12 +30,15 @@
                     </span>
                   </div>
                 <% end %>
+
               </div>
 
               <!-- レシピ情報 -->
               <div class="col-12 col-md-8">
-                <div class="card-body p-4 h-100">
 
+                <div class="card-body p-4 h-100 d-flex flex-column">
+
+                  <!-- 上部：基本情報とPurpose -->
                   <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
 
                     <div>
@@ -60,17 +64,43 @@
 
                     <% if recipe.purposes.any? %>
                       <div class="d-flex flex-wrap justify-content-md-end gap-2">
+
                         <% recipe.purposes.each do |purpose| %>
                           <span class="badge rounded-pill text-bg-warning px-3 py-2">
                             <%= purpose.name %>
                           </span>
                         <% end %>
+
                       </div>
                     <% end %>
 
                   </div>
 
+                  <!-- 下部：評価 -->
+                  <div class="mt-auto pt-3 text-end">
+
+                    <% if recipe.rating_count > 0 %>
+
+                      <span class="fw-bold">
+                        ★ <%= recipe.average_rating %>
+                      </span>
+
+                      <span class="text-muted">
+                        （<%= recipe.rating_count %>件）
+                      </span>
+
+                    <% else %>
+
+                      <span class="text-muted">
+                        まだ評価はありません
+                      </span>
+
+                    <% end %>
+
+                  </div>
+
                 </div>
+
               </div>
 
             </div>

@@ -69,6 +69,62 @@
 
     </div>
 
+    <div class="text-center mb-4">
+      <% if @recipe.rating_count > 0 %>
+      
+        <p class="fs-4 fw-bold mb-1">
+          ★ <%= @recipe.average_rating %>
+        </p>
+
+        <p class="text-muted mb-0">
+          <%= @recipe.rating_count %>件の評価
+        </p>
+
+      <% else %>
+        <p class="text-muted mb-0">まだ評価はありません。</p>
+      <% end %>
+    </div>
+
+    <!--  評価  -->
+    <% if @rating %>
+      <div class="card border-0 shadow-sm rounded-4 p-4 mb-5">
+
+        <h2 class="h4 fw-bold text-center mb-4">
+          このレシピを評価
+        </h2>
+
+        <%= form_with model: [@recipe, @rating] do |form| %>
+
+          <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
+
+            <% (1..5).each do |score| %>
+
+              <%= form.radio_button :score,
+                                    score,
+                                    class: "btn-check",
+                                    id: "rating_score_#{score}",
+                                    autocomplete: "off" %>
+
+              <%= form.label :score,
+                             "★ #{score}",
+                             value: score,
+                             for: "rating_score_#{score}",
+                             class: "btn btn-outline-warning rounded-pill px-3" %>
+
+            <% end %>
+
+          </div>
+
+          <div class="text-center">
+            <%= form.submit @rating.persisted? ? "評価を更新" : "評価する",
+                            class: "btn btn-warning rounded-pill px-5" %>
+          </div>
+
+        <% end %>
+
+      </div>
+    <% end %>
+
 
     <!-- コメント -->
     <section class="mb-5">

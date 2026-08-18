@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_13_122845) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_17_103558) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -54,6 +54,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_13_122845) do
     t.string "name", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_purposes_on_name", unique: true
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "recipe_id", null: false
+    t.integer "score", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["recipe_id"], name: "index_ratings_on_recipe_id"
+    t.index ["user_id", "recipe_id"], name: "index_ratings_on_user_id_and_recipe_id", unique: true
+    t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
   create_table "recipe_purposes", force: :cascade do |t|
@@ -104,6 +115,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_13_122845) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "recipes"
   add_foreign_key "comments", "users"
+  add_foreign_key "ratings", "recipes"
+  add_foreign_key "ratings", "users"
   add_foreign_key "recipe_purposes", "purposes"
   add_foreign_key "recipe_purposes", "recipes"
   add_foreign_key "recipes", "users"
