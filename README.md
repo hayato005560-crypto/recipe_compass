@@ -51,8 +51,8 @@
 - Purpose管理
 
 ## 設計書
-- [ER図](docs/recipe_compass_er.drawio)
-- [UI Flows](docs/recipe_compass_ui_flows.drawio)
+- [ER図](docs/recipe_compass_er.png)
+- [UI Flows](docs/recipe_compass_ui_flows.png)
 - [アプリケーション詳細設計書](docs/application_design.xlsx)
 - [テーブル定義書](docs/table_definition.xlsx)
 
