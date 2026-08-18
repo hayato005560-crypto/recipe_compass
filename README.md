@@ -1,4 +1,4 @@
-# Recipe_Compass(レシピコンパス)
+# Recipe Compass(レシピコンパス)
 
 ## サイト概要
 ### サイトテーマ
@@ -7,10 +7,10 @@
 ### テーマを選んだ理由
 日々の食事では、ダイエット、筋トレ、時短、節約など、その時の目的によって必要なレシピが変わると感じています。  
 しかし、レシピを探す際に目的に合ったものを見つけるまで時間がかかったり、自分と同じ目的を持つ人の工夫を知りにくいという課題があると考えました。  
-なので同じ目的を持つユーザー同士がレシピを投稿・検索・共有できれば、日々の食事選びをより効率的に行えると考え  
-目的別にレシピを探し、他のユーザーの投稿やコメントを参考にできるコミュニティサイトを制作しようと考えました。
+そこで、同じ目的を持つユーザー同士がレシピを投稿・検索・共有できれば、日々の食事選びをより効率的に行えると考え、  
+目的別にレシピを探し、他のユーザーの投稿やコメントを参考にできるコミュニティサイトを制作しました。
 
-### ターゲットユーザ
+### ターゲットユーザー
 - ダイエットや筋トレなど、目的に合ったレシピを探したい人
 - 忙しい日でも短時間で作れるレシピを探したい人
 - 食費を抑えながら料理をしたい人
@@ -21,15 +21,53 @@
 - 自分で作ったレシピを投稿して共有したい時
 - 他のユーザーのレシピにコメントしたい時
 - ダイエット、筋トレ、時短、節約などの条件でレシピを探したい時
+- 他のユーザーのレシピを評価したい時
+
+## 主な機能
+
+### ユーザー機能
+- 新規登録
+- ログイン / ログアウト
+- ゲストログイン
+- プロフィール閲覧 / 編集
+- 退会
+
+### レシピ機能
+- レシピ投稿 / 編集 / 削除
+- レシピ画像投稿
+- 目的（ダイエット・筋肉増量・時短・節約）の設定
+- キーワード検索
+- 目的別絞り込み
+
+### コミュニティ機能
+- コメント投稿 / 編集 / 削除
+- 5段階評価
+- 平均評価 / 評価件数表示
+
+### 管理者機能
+- ユーザー管理
+- レシピ管理
+- コメント管理
+- Purpose管理
 
 ## 設計書
-- 後ほど作成予定
+- https://drive.google.com/file/d/1WXG4S4LIXFsBzO45xnoYjfBkevOuYxdO/view?usp=sharing
+- https://drive.google.com/file/d/1JomxqZXCig-5lUo0CLN7_QCJdjdt9Xon/view?usp=sharing
+- https://docs.google.com/spreadsheets/d/1-CASmkp_zixZ1MHKl_e_1SD7E6VBmBYjpcmBsG9pTLA/edit?usp=sharing
+- https://docs.google.com/spreadsheets/d/1gukW8N0RAA31FitZYS_ued_kf4JE-QoU5CspVGAZ0kM/edit?usp=sharing
 
 ## 開発環境
-- OS：Windows
-- 言語：HTML,CSS,JavaScript,Ruby,SQL
-- フレームワーク：Ruby on Rails
-- JSライブラリ：jQuery
-- IDE：Visual Studio Code（VSCode）
+- 言語：HTML / CSS / JavaScript / Ruby / SQL
+- フレームワーク：Ruby on Rails 8.1.3
+- CSSフレームワーク：Bootstrap 5.3.8
+- JavaScript：Hotwire（Turbo） / Importmap
+- データベース：MySQL
+- 画像管理：Active Storage
+- Webサーバー：Nginx
+- Application Server：Puma
+- インフラ：AWS EC2 / Amazon RDS
+- バージョン管理：Git / GitHub
+- エディタ：Visual Studio Code
 
 ## 使用素材
+- ロゴ画像：ChatGPTの画像生成機能を使用して作成
