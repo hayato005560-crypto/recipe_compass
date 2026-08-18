@@ -51,10 +51,10 @@
 - Purpose管理
 
 ## 設計書
-- https://drive.google.com/file/d/1WXG4S4LIXFsBzO45xnoYjfBkevOuYxdO/view?usp=sharing
-- https://drive.google.com/file/d/1JomxqZXCig-5lUo0CLN7_QCJdjdt9Xon/view?usp=sharing
-- https://docs.google.com/spreadsheets/d/1-CASmkp_zixZ1MHKl_e_1SD7E6VBmBYjpcmBsG9pTLA/edit?usp=sharing
-- https://docs.google.com/spreadsheets/d/1gukW8N0RAA31FitZYS_ued_kf4JE-QoU5CspVGAZ0kM/edit?usp=sharing
+- [ER図](docs/recipe_compass_er.drawio)
+- [UI Flows](docs/recipe_compass_ui_flows.drawio)
+- [アプリケーション詳細設計書](docs/application_design.xlsx)
+- [テーブル定義書](docs/table_definition.xlsx)
 
 ## 開発環境
 - 言語：HTML / CSS / JavaScript / Ruby / SQL
