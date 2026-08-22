@@ -18,16 +18,18 @@
 
       <% if @recipe.image.attached? %>
         <div class="text-center mb-4">
-            <%= image_tag @recipe.image,
-                        class: "w-100 rounded-4 recipe-show-image",
-                        alt: @recipe.title %>
+            <%= image_tag @recipe.image, class: "w-100 rounded-4 recipe-show-image", alt: @recipe.title %>
         </div>
       <% end %>
 
       <!-- 材料 -->
       <div class="card border-0 bg-light rounded-4 p-4 mb-3">
         <h2 class="h4 fw-bold mb-3">材料</h2>
-        <%= simple_format(@recipe.ingredients, class: "mb-0") %>
+        <ul>
+          <% @recipe.ingredients.split("\n").each do |ingredient| %>
+            <li><%= ingredient %></li>
+          <% end %>
+        </ul>
       </div>
 
       <!-- 調理時間 -->
@@ -39,7 +41,11 @@
       <!-- 作り方 -->
       <div class="card border-0 bg-light rounded-4 p-4 mb-3">
         <h2 class="h4 fw-bold mb-3">作り方</h2>
-        <%= simple_format(@recipe.steps, class: "mb-0") %>
+        <ol>
+          <% @recipe.steps.split("\n").each do |step| %>
+            <li><%= step %></li>
+          <% end %>
+        </ol>
       </div>
 
       <!-- 補足説明 -->
@@ -50,9 +56,7 @@
 
       <% if Current.user == @recipe.user && !Current.user.is_guest? %>
         <div class="d-flex justify-content-end gap-2">
-          <%= link_to "編集",
-                      edit_recipe_path(@recipe),
-                      class: "btn btn-outline-warning rounded-pill px-4" %>
+          <%= link_to "編集", edit_recipe_path(@recipe), class: "btn btn-outline-warning rounded-pill px-4" %>
 
           <%= button_to "削除",
                         recipe_path(@recipe),
@@ -71,7 +75,7 @@
 
     <div class="text-center mb-4">
       <% if @recipe.rating_count > 0 %>
-      
+
         <p class="fs-4 fw-bold mb-1">
           ★ <%= @recipe.average_rating %>
         </p>
@@ -85,7 +89,7 @@
       <% end %>
     </div>
 
-    <!--  評価  -->
+    <!-- 評価 -->
     <% if @rating %>
       <div class="card border-0 shadow-sm rounded-4 p-4 mb-5">
 

@@ -34,16 +34,11 @@
                             class: "w-100 rounded-4 recipe-edit-image",
                             alt: "選択中のレシピ画像" %>
             <% else %>
-              <img id="recipe-image-preview"
-                   class="w-100 rounded-4 recipe-edit-image d-none"
-                   alt="選択中のレシピ画像">
+              <img id="recipe-image-preview" class="w-100 rounded-4 recipe-edit-image d-none" alt="選択中のレシピ画像">
             <% end %>
           </div>
 
-          <%= form.file_field :image,
-                              class: "form-control",
-                              id: "recipe-image-input",
-                              accept: "image/*" %>
+          <%= form.file_field :image, class: "form-control", id: "recipe-image-input", accept: "image/*" %>
 
           <p class="text-muted small mt-2 mb-0">
             新しい画像を選択すると、上の画像がプレビューに切り替わります。
@@ -67,38 +62,31 @@
         <!-- 調理時間 -->
         <div class="mb-4">
           <%= form.label :cooking_time, "調理時間（分）", class: "form-label fw-bold" %>
-          <%= form.number_field :cooking_time,
-                                min: 1,
-                                class: "form-control" %>
+          <%= form.number_field :cooking_time, min: 1, class: "form-control" %>
         </div>
 
         <!-- 材料 -->
         <div class="mb-4">
           <%= form.label :ingredients, "材料", class: "form-label fw-bold" %>
-          <%= form.text_area :ingredients,
-                             class: "form-control",
-                             rows: 6 %>
+          <p>＊材料1つにつき1行で入力してください</p>
+          <%= form.text_area :ingredients, class: "form-control", rows: 6 %>
         </div>
 
         <!-- 作り方 -->
         <div class="mb-4">
           <%= form.label :steps, "作り方", class: "form-label fw-bold" %>
-          <%= form.text_area :steps,
-                             class: "form-control",
-                             rows: 8 %>
+          <p>＊1手順につき1行で入力してください</p>
+          <%= form.text_area :steps, class: "form-control", rows: 8 %>
         </div>
 
         <!-- 補足説明 -->
         <div class="mb-4">
           <%= form.label :body, "補足説明", class: "form-label fw-bold" %>
-          <%= form.text_area :body,
-                             class: "form-control",
-                             rows: 5 %>
+          <%= form.text_area :body, class: "form-control", rows: 5 %>
         </div>
 
         <div class="text-center">
-          <%= form.submit "更新",
-                          class: "btn btn-warning rounded-pill px-5" %>
+          <%= form.submit "更新", class: "btn btn-warning rounded-pill px-5" %>
         </div>
 
       <% end %>

@@ -14,7 +14,7 @@ class Admin::UsersController < Admin::BaseController
 
     def update
         @user = User.find(params[:id])
-        
+
         if @user.update(user_params)
             redirect_to admin_user_path(@user), notice: "更新完了"
         else

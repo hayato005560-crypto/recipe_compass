@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :edit, :update, :destroy]
     resources :ratings, only: [:create, :update]
   end
- 
+
 
   namespace :admin do
     root "homes#top"

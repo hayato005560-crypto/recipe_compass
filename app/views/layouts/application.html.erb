@@ -13,8 +13,6 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -27,7 +25,6 @@
       crossorigin="anonymous"
     >
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 
@@ -44,9 +41,7 @@
 
         <!-- ロゴ -->
         <%= link_to root_path, class: "navbar-brand" do %>
-          <%= image_tag "recipe_compass_logo.png",
-                        alt: "Recipe Compass",
-                        class: "recipe-logo" %>
+          <%= image_tag "recipe_compass_logo.png", alt: "Recipe Compass", class: "recipe-logo" %>
         <% end %>
 
         <!-- スマホ用ハンバーガーボタン -->
@@ -68,72 +63,37 @@
             <% if Current.user %>
 
               <% if Current.user.admin? %>
-                <%= link_to "管理者トップ",
-                            admin_root_path,
-                            class: "nav-link" %>
+                <%= link_to "管理者トップ", admin_root_path, class: "nav-link" %>
 
-                <%= link_to "ユーザー一覧",
-                            admin_users_path,
-                            class: "nav-link" %>
+                <%= link_to "会員一覧", admin_users_path, class: "nav-link" %>
 
-                <%= link_to "レシピ一覧",
-                            admin_recipes_path,
-                            class: "nav-link" %>
+                <%= link_to "レシピ一覧", admin_recipes_path, class: "nav-link" %>
 
-                <%= link_to "目的一覧",
-                            admin_purposes_path,
-                            class: "nav-link" %>
+                <%= link_to "目的一覧", admin_purposes_path, class: "nav-link" %>
 
-                <%= button_to "ログアウト",
-                              session_path,
-                              method: :delete,
-                              class: "nav-link btn btn-link p-0",
-                              form_class: "d-flex align-items-center" %>
+                <%= button_to "ログアウト", session_path, method: :delete, class: "nav-link btn btn-link p-0", form_class: "d-flex align-items-center" %>
 
               <% elsif Current.user.is_guest? %>
-                <%= link_to "投稿一覧",
-                            recipes_path,
-                            class: "nav-link" %>
+                <%= link_to "投稿一覧", recipes_path, class: "nav-link" %>
 
-                <%= button_to "ログアウト",
-                              session_path,
-                              method: :delete,
-                              class: "nav-link btn btn-link p-0",
-                              form_class: "d-flex align-items-center" %>
+                <%= button_to "ログアウト", session_path, method: :delete, class: "nav-link btn btn-link p-0", form_class: "d-flex align-items-center" %>
 
               <% else %>
-                <%= link_to "投稿一覧",
-                            recipes_path,
-                            class: "nav-link" %>
+                <%= link_to "投稿一覧", recipes_path, class: "nav-link" %>
 
-                <%= link_to "レシピの投稿",
-                            new_recipe_path,
-                            class: "nav-link" %>
+                <%= link_to "レシピの投稿", new_recipe_path, class: "nav-link" %>
 
-                <%= link_to "マイページ",
-                            user_path(Current.user),
-                            class: "nav-link" %>
+                <%= link_to "マイページ", user_path(Current.user), class: "nav-link" %>
 
-                <%= button_to "ログアウト",
-                              session_path,
-                              method: :delete,
-                              class: "nav-link btn btn-link p-0",
-                              form_class: "d-flex align-items-center" %>
+                <%= button_to "ログアウト", session_path,method: :delete, class: "nav-link btn btn-link p-0", form_class: "d-flex align-items-center" %>
               <% end %>
 
             <% else %>
-              <%= link_to "ログイン",
-                          new_session_path,
-                          class: "nav-link" %>
+              <%= link_to "ログイン", new_session_path, class: "nav-link" %>
 
-              <%= link_to "新規登録",
-                          new_user_path,
-                          class: "nav-link" %>
+              <%= link_to "新規登録", new_user_path, class: "nav-link" %>
 
-              <%= button_to "ゲストログイン",
-                            guest_session_path,
-                            class: "nav-link btn btn-link p-0",
-                            form_class: "d-flex align-items-center" %>
+              <%= button_to "ゲストログイン", guest_session_path, class: "nav-link btn btn-link p-0", form_class: "d-flex align-items-center" %>
             <% end %>
 
           </div>
