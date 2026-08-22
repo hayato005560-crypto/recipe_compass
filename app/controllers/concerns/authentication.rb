@@ -27,7 +27,7 @@ module Authentication
 
       return Current.session if Current.session.user.is_active?
 
-      
+
       Current.session.destroy
       Current.session = nil
       cookies.delete(:session_id)

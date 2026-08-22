@@ -30,19 +30,12 @@
           <%= form.label :image, "画像", class: "form-label fw-bold" %>
 
           <div class="mb-3">
-            <img id="recipe-image-preview"
-                 class="w-100 rounded-4 recipe-edit-image d-none"
-                 alt="選択中のレシピ画像">
+            <img id="recipe-image-preview" class="w-100 rounded-4 recipe-edit-image d-none" alt="選択中のレシピ画像">
           </div>
 
-          <%= form.file_field :image,
-                              class: "form-control",
-                              id: "recipe-image-input",
-                              accept: "image/*" %>
+          <%= form.file_field :image, class: "form-control", id: "recipe-image-input", accept: "image/*" %>
 
-          <p class="text-muted small mt-2 mb-0">
-            画像を選択すると、上にプレビューが表示されます。
-          </p>
+          <p class="text-muted small mt-2 mb-0">画像を選択すると、上にプレビューが表示されます。</p>
         </div>
 
         <!-- 目的 -->
@@ -50,10 +43,7 @@
           <p class="form-label fw-bold">目的</p>
 
           <div class="d-flex flex-wrap gap-3">
-            <%= form.collection_check_boxes :purpose_ids,
-                                            Purpose.all,
-                                            :id,
-                                            :name do |box| %>
+            <%= form.collection_check_boxes :purpose_ids, Purpose.all, :id, :name do |box| %>
               <div class="form-check">
                 <%= box.check_box class: "form-check-input" %>
                 <%= box.label class: "form-check-label" %>
@@ -64,45 +54,34 @@
 
         <!-- 調理時間 -->
         <div class="mb-4">
-          <%= form.label :cooking_time,
-                         "調理時間（分）",
-                         class: "form-label fw-bold" %>
+          <%= form.label :cooking_time, "調理時間（分）", class: "form-label fw-bold" %>
 
-          <%= form.number_field :cooking_time,
-                                min: 1,
-                                class: "form-control" %>
+          <%= form.number_field :cooking_time, min: 1, class: "form-control" %>
         </div>
 
         <!-- 材料 -->
         <div class="mb-4">
           <%= form.label :ingredients, "材料", class: "form-label fw-bold" %>
-
-          <%= form.text_area :ingredients,
-                             class: "form-control",
-                             rows: 6 %>
+          <p>材料1つにつき1行で入力してください</p>
+          <%= form.text_area :ingredients, placeholder: "例：\n豚肉100g\nキャベツ200g", class: "form-control", rows: 6 %>
         </div>
 
         <!-- 作り方 -->
         <div class="mb-4">
           <%= form.label :steps, "作り方", class: "form-label fw-bold" %>
-
-          <%= form.text_area :steps,
-                             class: "form-control",
-                             rows: 8 %>
+          <p>1手順につき1行で入力してください</p>
+          <%= form.text_area :steps, placeholder: "例：\n野菜を洗い分量分切る\n切った野菜を油を引いたフライパンで入れ中火で3分焼く", class: "form-control", rows: 8 %>
         </div>
 
         <!-- 補足説明 -->
         <div class="mb-4">
           <%= form.label :body, "補足説明", class: "form-label fw-bold" %>
 
-          <%= form.text_area :body,
-                             class: "form-control",
-                             rows: 5 %>
+          <%= form.text_area :body, class: "form-control", rows: 5 %>
         </div>
 
         <div class="text-center">
-          <%= form.submit "投稿",
-                          class: "btn btn-warning rounded-pill px-5" %>
+          <%= form.submit "投稿", class: "btn btn-warning rounded-pill px-5" %>
         </div>
 
       <% end %>

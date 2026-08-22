@@ -7,6 +7,7 @@ class RecipesController < ApplicationController
     @purposes = Purpose.all
     purpose_id = params[:purpose_id]
     @recipes = Recipe.all
+    sort = params[:sort]
 
     if keyword.present?
       case target
@@ -21,16 +22,24 @@ class RecipesController < ApplicationController
         when "all"
           @recipes = @recipes.where(
             "title LIKE ? OR body LIKE ? OR ingredients LIKE ? OR steps LIKE ?",
-                "%#{keyword}%",
-                "%#{keyword}%",
-                "%#{keyword}%",
-                "%#{keyword}%"
+                "%#{keyword}%", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%"
           )
       end
     end
 
     if purpose_id.present?
       @recipes = @recipes.joins(:purposes).where( purposes: { id: purpose_id } )
+    end
+
+    case sort
+      when "newest"
+        @recipes = @recipes.order(created_at: :desc)
+      when "oldest"
+        @recipes = @recipes.order(created_at: :asc)
+      when "high_rating"
+        @recipes = @recipes.left_joins(:ratings).group("recipes.id").order("AVG(ratings.score) DESC")
+      else
+        @recipes = @recipes.order(created_at: :asc)
     end
   end
 
@@ -72,7 +81,7 @@ class RecipesController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
-  end 
+  end
 
   def destroy
     @recipe = Current.user.recipes.find(params[:id])

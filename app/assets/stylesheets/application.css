@@ -183,3 +183,8 @@ body {
   min-height: 220px;
   background-color: #eeeeee;
 }
+
+.recipe-navbar .nav-link {
+  font-family: Georgia, "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-weight: 700;
+}
