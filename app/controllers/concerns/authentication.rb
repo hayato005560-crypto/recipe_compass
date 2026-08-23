@@ -27,7 +27,6 @@ module Authentication
 
       return Current.session if Current.session.user.is_active?
 
-
       Current.session.destroy
       Current.session = nil
       cookies.delete(:session_id)
@@ -44,7 +43,11 @@ module Authentication
     end
 
     def after_authentication_url
-      session.delete(:return_to_after_authenticating) || recipes_url
+      return_to = session.delete(:return_to_after_authenticating)
+
+      return admin_recipes_url if Current.user.admin?
+
+      return_to || recipes_url
     end
 
     def start_new_session_for(user)
