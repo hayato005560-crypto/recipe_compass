@@ -5,16 +5,26 @@ require "json"
 
 class VisionService
   API_URL = "https://vision.googleapis.com/v1/images:annotate"
+  TRANSLATION_API_URL = "https://translation.googleapis.com/language/translate/v2"
 
-  FOOD_LABELS = {
-    "Broccoli" => "ブロッコリー",
-    "Pasta" => "パスタ",
-    "Spaghetti" => "パスタ",
-    "Tomato" => "トマト",
-    "Chicken" => "鶏肉",
-    "Onion" => "玉ねぎ",
-    "Pork" => "豚肉",
-    "Cabbage" => "キャベツ"
+  IGNORE_LABELS = [
+    "Food",
+    "Ingredient",
+    "Tableware",
+    "Dishware",
+    "Plate",
+    "Al dente",
+    "Vegetable",
+    "Produce"
+  ].freeze
+
+  FOOD_SYNONYMS = {
+    "チキン" => ["鶏肉"],
+    "鶏肉" => ["チキン"],
+    "ポテト" => ["じゃがいも"],
+    "じゃがいも" => ["ポテト"],
+    "オニオン" => ["玉ねぎ"],
+    "玉ねぎ" => ["オニオン"]
   }.freeze
 
   def initialize
@@ -55,7 +65,11 @@ class VisionService
 
     labels = extract_labels(result)
 
-    translate_food_labels(labels)
+    filtered_labels = filter_labels(labels)
+
+    translated_labels = translate_labels(filtered_labels)
+
+    translate_labels(filtered_labels)
   end
 
   def extract_labels(result)
@@ -66,9 +80,41 @@ class VisionService
     end
   end
 
-  def translate_food_labels(labels)
-    labels.map do |label|
-      FOOD_LABELS[label]
-    end.compact.uniq
+  def filter_labels(labels)
+    labels.reject do |label|
+      IGNORE_LABELS.include?(label)
+    end
   end
+
+  def translate_labels(labels)
+    uri = URI(TRANSLATION_API_URL)
+    uri.query = URI.encode_www_form(key: @api_key)
+
+    request_body = {
+      q: labels,
+      source: "en",
+      target: "ja",
+      format: "text"
+    }
+
+    response = Net::HTTP.post(
+      uri,
+      request_body.to_json,
+      { "Content-Type" => "application/json" }
+    )
+
+    body = response.body.force_encoding("UTF-8")
+    result = JSON.parse(body)
+
+    result["data"]["translations"].map do |translation|
+      translation["translatedText"]
+    end
+  end
+
+  def expand_synonyms(labels)
+    labels.flat_map do |label|
+      [label] + FOOD_SYNONYMS.fetch(label, [])
+    end.uniq
+  end
+
 end
