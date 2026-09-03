@@ -7,6 +7,9 @@
     <div class="col-12 col-lg-10">
       <div class="card border-0 shadow-sm rounded-4 p-4">
 
+        <!-- 通常検索 -->
+        <h5 class="fw-bold mb-3">条件から検索</h5>
+
         <%= form_with url: recipes_path, method: :get, data: { turbo_frame: "recipe_list" } do |form| %>
 
           <div class="row g-3 align-items-end">
@@ -29,7 +32,9 @@
             <div class="col-12 col-md-4">
               <%= form.label :keyword, "キーワード", class: "form-label fw-bold" %>
 
-              <%= form.text_field :keyword, class: "form-control", placeholder: "キーワードを入力" %>
+              <%= form.text_field :keyword,
+                                  class: "form-control",
+                                  placeholder: "キーワードを入力" %>
             </div>
 
             <div class="col-12 col-md-3">
@@ -47,13 +52,14 @@
 
             <div class="col-12 col-md-3">
               <%= form.label :sort, "並び順", class: "form-label fw-bold" %>
-              <%= form.select :sort, 
-                              [ 
-                                ["古い順", "oldest"], 
+ 
+              <%= form.select :sort,
+                              [
+                                ["古い順", "oldest"],
                                 ["新しい順", "newest"],
-                                ["高評価順", "high_rating"] 
-                              ], 
-                              {}, 
+                                ["高評価順", "high_rating"]
+                              ],
+                              {},
                               class: "form-select" %>
             </div>
 
@@ -61,9 +67,54 @@
 
           <div class="row mt-3">
             <div class="col-12 d-flex justify-content-center gap-2">
-              <%= link_to "リセット", recipes_path, class: "btn btn-danger px-5" %>
-              <%= form.submit "検索", class: "btn btn-warning w-50" %>
+              <%= link_to "リセット",
+                          recipes_path,
+                          class: "btn btn-danger px-5" %>
+
+              <%= form.submit "検索",
+                              class: "btn btn-warning w-50" %>
             </div>
+          </div>
+
+        <% end %>
+
+        <!-- 検索方法の仕切り -->
+        <hr class="my-4">
+
+        <!-- AI画像検索 -->
+        <h5 class="fw-bold mb-3">画像から検索</h5>
+
+        <p class="text-muted mb-3">食材が写っている画像からレシピを検索できます。</p>
+
+        <% if @food_labels.present? %>
+          <p class="mb-3">
+            <% @food_labels.each do |label| %>
+              [<%= label %>]
+            <% end %>
+          </p>
+        <% end %>
+
+        <%= form_with url: image_search_recipes_path,
+                      method: :post,
+                      data: { turbo: false } do |form| %>
+
+          <div class="row g-3 align-items-end">
+
+            <div class="col-12 col-md-8">
+              <%= form.label :image,
+                             "食材の画像",
+                             class: "form-label fw-bold" %>
+
+              <%= form.file_field :image,
+                                  accept: "image/*",
+                                  class: "form-control" %>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <%= form.submit "画像から検索",
+                              class: "btn btn-warning w-100" %>
+            </div>
+
           </div>
 
         <% end %>

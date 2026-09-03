@@ -9,6 +9,20 @@ class RecipesController < ApplicationController
     @recipes = Recipe.all
     sort = params[:sort]
 
+    @food_labels = params[:food_labels]
+
+    if @food_labels.present?
+      image_search_recipes = Recipe.none
+
+      @food_labels.each do |label|
+        image_search_recipes = image_search_recipes.or(
+          Recipe.where("ingredients LIKE ?", "%#{label}%")
+        )
+      end
+
+      @recipes = image_search_recipes
+    end
+
     if keyword.present?
       case target
         when "title"
@@ -87,6 +101,19 @@ class RecipesController < ApplicationController
     @recipe = Current.user.recipes.find(params[:id])
     @recipe.destroy
     redirect_to recipes_path, notice: "レシピを削除しました。"
+  end
+
+  def image_search
+    image = params[:image]
+
+    unless image.present?
+      redirect_to recipes_path, alert: "画像を選択してください。"
+      return
+    end
+
+    food_labels = VisionService.new.analyze(image)
+
+    redirect_to recipes_path(food_labels: food_labels)
   end
 
   private

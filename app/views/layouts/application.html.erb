@@ -103,23 +103,31 @@
     </header>
 
     <!-- フラッシュメッセージ -->
-    <div class="container mt-3">
-      <% if notice %>
-        <p class="text-success fw-bold">
-          <%= notice %>
-        </p>
-      <% end %>
+    <% if notice || alert %>
+      <div class="container mt-3">
+        <% if notice %>
+          <p class="text-success fw-bold">
+            <%= notice %>
+          </p>
+        <% end %>
 
-      <% if alert %>
-        <p class="text-danger fw-bold">
-          <%= alert %>
-        </p>
-      <% end %>
-    </div>
+        <% if alert %>
+          <p class="text-danger fw-bold">
+            <%= alert %>
+          </p>
+        <% end %>
+      </div>
+    <% end %>
 
     <!-- メインコンテンツ -->
-    <main class="container my-4">
-      <%= yield %>
-    </main>
+    <% if current_page?(root_path) %>
+      <main class="top-main">
+        <%= yield %>
+      </main>
+    <% else %>
+      <main class="container my-4">
+        <%= yield %>
+      </main>
+    <% end %>
   </body>
 </html>

@@ -7,6 +7,11 @@
 body {
   background-color: #fff8e7;
   color: #212529;
+  overflow-x: hidden;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .recipe-navbar {
@@ -45,11 +50,14 @@ body {
   padding-inline: 2rem;
 }
 
-.top-hero {
-  width: 100vw;
-  min-height: calc(100vh - 130px);
+.top-main {
+  flex: 1;
+  display: flex;
+}
 
-  margin-left: calc(50% - 50vw);
+.top-hero {
+  width: 100%;
+  flex: 1;
 
   display: flex;
   align-items: center;
