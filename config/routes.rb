@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :recipes do
     resources :comments, only: [:create, :edit, :update, :destroy]
     resources :ratings, only: [:create, :update]
+    collection do
+      post :image_search
+    end
   end
 
 
