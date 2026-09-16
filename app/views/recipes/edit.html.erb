@@ -17,13 +17,13 @@
 
       <%= form_with model: @recipe do |form| %>
 
-        <!-- レシピ名 -->
+        <%# レシピ名 %>
         <div class="mb-4">
           <%= form.label :title, "レシピ名", class: "form-label fw-bold" %>
           <%= form.text_field :title, class: "form-control" %>
         </div>
 
-        <!-- 画像 -->
+        <%# 画像 %>
         <div class="mb-4">
           <%= form.label :image, "画像", class: "form-label fw-bold" %>
 
@@ -45,7 +45,7 @@
           </p>
         </div>
 
-        <!-- 目的 -->
+        <%# 目的 %>
         <div class="mb-4">
           <p class="form-label fw-bold">目的</p>
 
@@ -59,27 +59,27 @@
           </div>
         </div>
 
-        <!-- 調理時間 -->
+        <%# 調理時間 %>
         <div class="mb-4">
           <%= form.label :cooking_time, "調理時間（分）", class: "form-label fw-bold" %>
           <%= form.number_field :cooking_time, min: 1, class: "form-control" %>
         </div>
 
-        <!-- 材料 -->
+        <%# 材料 %>
         <div class="mb-4">
           <%= form.label :ingredients, "材料", class: "form-label fw-bold" %>
           <p>＊材料1つにつき1行で入力してください</p>
           <%= form.text_area :ingredients, class: "form-control", rows: 6 %>
         </div>
 
-        <!-- 作り方 -->
+        <%# 作り方 %>
         <div class="mb-4">
           <%= form.label :steps, "作り方", class: "form-label fw-bold" %>
           <p>＊1手順につき1行で入力してください</p>
           <%= form.text_area :steps, class: "form-control", rows: 8 %>
         </div>
 
-        <!-- 補足説明 -->
+        <%# 補足説明 %>
         <div class="mb-4">
           <%= form.label :body, "補足説明", class: "form-label fw-bold" %>
           <%= form.text_area :body, class: "form-control", rows: 5 %>

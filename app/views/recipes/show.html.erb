@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
   <div class="col-12 col-lg-10">
 
-    <!-- レシピ本体 -->
+    <%# レシピ本体 %>
     <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-5">
 
       <div class="text-center mb-4">
@@ -22,7 +22,7 @@
         </div>
       <% end %>
 
-      <!-- 材料 -->
+      <%# 材料 %>
       <div class="card border-0 bg-light rounded-4 p-4 mb-3">
         <h2 class="h4 fw-bold mb-3">材料</h2>
         <ul>
@@ -32,13 +32,13 @@
         </ul>
       </div>
 
-      <!-- 調理時間 -->
+      <%# 調理時間 %>
       <div class="card border-0 bg-light rounded-4 p-4 mb-3">
         <h2 class="h4 fw-bold mb-3">調理時間</h2>
         <p class="mb-0"><%= @recipe.cooking_time %>分</p>
       </div>
 
-      <!-- 作り方 -->
+      <%# 作り方 %>
       <div class="card border-0 bg-light rounded-4 p-4 mb-3">
         <h2 class="h4 fw-bold mb-3">作り方</h2>
         <ol>
@@ -48,7 +48,7 @@
         </ol>
       </div>
 
-      <!-- 補足説明 -->
+      <%# 補足説明 %>
       <div class="card border-0 bg-light rounded-4 p-4 mb-4">
         <h2 class="h4 fw-bold mb-3">補足説明</h2>
         <%= simple_format(@recipe.body, class: "mb-0") %>
@@ -89,7 +89,7 @@
       <% end %>
     </div>
 
-    <!-- 評価 -->
+    <%# 評価 %>
     <% if @rating %>
       <div class="card border-0 shadow-sm rounded-4 p-4 mb-5">
 
@@ -130,7 +130,7 @@
     <% end %>
 
 
-    <!-- コメント -->
+    <%# コメント %>
     <section class="mb-5">
       <h2 class="text-center mb-4">コメント</h2>
 
@@ -190,7 +190,7 @@
       </div>
     <% end %>
 
-    <!-- コメント投稿 -->
+    <%# コメント投稿 %>
     <% if Current.user.present? && !Current.user.is_guest? %>
       <div class="card border-0 shadow-sm rounded-4 p-4 mb-5">
 

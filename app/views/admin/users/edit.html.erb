@@ -9,7 +9,7 @@
 
       <%= form_with model: [:admin, @user] do |form| %>
 
-        <!-- ユーザー名 -->
+        <%# ユーザー名 %>
         <div class="mb-4">
           <%= form.label :name,
                          "ユーザー名",
@@ -19,7 +19,7 @@
                               class: "form-control" %>
         </div>
 
-        <!-- メールアドレス -->
+        <%# メールアドレス %>
         <div class="mb-4">
           <%= form.label :email_address,
                          "メールアドレス",
@@ -29,7 +29,7 @@
                                class: "form-control" %>
         </div>
 
-        <!-- 自己紹介 -->
+        <%# 自己紹介 %>
         <div class="mb-4">
           <%= form.label :introduction,
                          "自己紹介",
@@ -40,7 +40,7 @@
                              rows: 5 %>
         </div>
 
-        <!-- 会員ステータス -->
+        <%# 会員ステータス %>
         <div class="mb-5">
           <p class="form-label fw-bold mb-3">
             ユーザーステータス
@@ -72,7 +72,7 @@
           </div>
         </div>
 
-        <!-- 更新 -->
+        <%# 更新 %>
         <div class="text-center">
           <%= form.submit "更新",
                           class: "btn btn-warning rounded-pill px-5" %>

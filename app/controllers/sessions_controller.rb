@@ -1,10 +1,19 @@
 class SessionsController < ApplicationController
   allow_unauthenticated_access only: %i[new create guest]
-  rate_limit to: 10, within: 3.minutes, only: %i[create guest], with: -> { redirect_to new_session_path, alert: "しばらく時間をおいてから再度お試しください" }
+
+  # ログイン・ゲストログインの連続試行を制限
+  rate_limit to: 10,
+             within: 3.minutes,
+             only: %i[create guest],
+             with: -> {
+               redirect_to new_session_path,
+                           alert: "しばらく時間をおいてから再度お試しください"
+             }
 
   def new
   end
 
+  # 通常ログイン
   def create
     user = User.authenticate_by(params.permit(:email_address, :password))
 
@@ -16,6 +25,7 @@ class SessionsController < ApplicationController
     end
   end
 
+  # ゲストユーザーでログイン
   def guest
     user = User.find_or_create_by!(
       email_address: "guest@example.com",
@@ -29,6 +39,7 @@ class SessionsController < ApplicationController
     redirect_to after_authentication_url, notice: "ゲストユーザーとしてログインしました。"
   end
 
+  # ログアウト
   def destroy
     terminate_session
     redirect_to new_session_path, notice: "ログアウトしました。", status: :see_other
