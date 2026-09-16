@@ -38,6 +38,11 @@
 - 目的（ダイエット・筋肉増量・時短・節約）の設定
 - キーワード検索
 - 目的別絞り込み
+- 新着順 / 古い順 / 高評価順での並び替え
+- AI画像検索
+  - 画像から食材候補を認識
+  - 認識した食材を日本語へ自動翻訳
+  - 表記ゆれを補完してレシピ検索
 
 ### コミュニティ機能
 - コメント投稿 / 編集 / 削除
@@ -61,13 +66,43 @@
 - フレームワーク：Ruby on Rails 8.1.3
 - CSSフレームワーク：Bootstrap 5.3.8
 - JavaScript：Hotwire（Turbo） / Importmap
-- データベース：MySQL
+- データベース
+  - 開発：SQLite
+  - 本番：MySQL / Amazon RDS
 - 画像管理：Active Storage
 - Webサーバー：Nginx
 - Application Server：Puma
-- インフラ：AWS EC2 / Amazon RDS
 - バージョン管理：Git / GitHub
 - エディタ：Visual Studio Code
+- 外部API
+  - Google Cloud Vision API
+  - Google Cloud Translation API
+
+## AI画像検索の仕組み
+
+1. ユーザーが食材画像をアップロード
+2. Google Cloud Vision APIで画像を解析
+3. 不要なラベルを除外
+4. Google Cloud Translation APIで英語ラベルを日本語へ翻訳
+5. 表記ゆれを補完
+6. Railsでレシピの材料情報を検索
+7. 該当レシピを一覧表示
+## 工夫した点
+
+### AI画像検索
+Vision APIの認識結果は英語で返されるため、Translation APIを利用して日本語へ自動翻訳しています。
+
+当初は固定辞書による翻訳を実装していましたが、辞書に登録されていない食材に対応できないため、自動翻訳方式へ改善しました。
+
+また、「チキン」と「鶏肉」のような表記の違いによる検索漏れを減らすため、表記ゆれを補完して検索しています。
 
 ## 使用素材
 - ロゴ画像：ChatGPTの画像生成機能を使用して作成
+
+## 今後の改善
+
+- 材料情報のDB化
+- ユーザーの所持食材とレシピ材料の照合
+- 所持食材から作れるレシピの提案
+- 画像認識精度の改善
+- 自動テストの拡充

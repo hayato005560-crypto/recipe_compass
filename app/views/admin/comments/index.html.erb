@@ -1,3 +1,4 @@
+<%# コメント一覧 %>
 <div class="row justify-content-center">
   <div class="col-12 col-lg-10">
 
@@ -7,6 +8,7 @@
 
     <% if @comments.any? %>
 
+      <%# コメントカード %>
       <% @comments.each do |comment| %>
 
         <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
@@ -26,6 +28,7 @@
 
             </div>
 
+            <%# 管理者用コメント削除ボタン %>
             <div>
               <%= button_to "削除",
                             admin_recipe_comment_path(@recipe, comment),
@@ -47,6 +50,7 @@
 
     <% else %>
 
+      <%# コメントがない場合 %>
       <div class="card border-0 shadow-sm rounded-4 p-5 text-center">
         <p class="text-muted mb-0">
           このレシピにはまだコメントがありません。

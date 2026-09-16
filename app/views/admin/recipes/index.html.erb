@@ -1,9 +1,7 @@
 <div class="row justify-content-center">
   <div class="col-12 col-lg-10">
 
-    <h1 class="text-center fw-bold mb-4">
-      レシピ一覧
-    </h1>
+    <h1 class="text-center fw-bold mb-4">レシピ一覧</h1>
 
     <% if @recipes.any? %>
 
@@ -16,7 +14,7 @@
 
             <div class="row g-0">
 
-              <!-- レシピ画像 -->
+              <%# レシピ画像 %>
               <div class="col-12 col-md-4">
 
                 <% if recipe.image.attached? %>
@@ -33,12 +31,12 @@
 
               </div>
 
-              <!-- レシピ情報 -->
+              <%# レシピ情報 %>
               <div class="col-12 col-md-8">
 
                 <div class="card-body p-4 h-100 d-flex flex-column">
 
-                  <!-- 上部：基本情報とPurpose -->
+                  <%# 基本情報とPurpose %>
                   <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
 
                     <div>
@@ -76,7 +74,7 @@
 
                   </div>
 
-                  <!-- 下部：評価 -->
+                  <%# 評価情報 %>
                   <div class="mt-auto pt-3 text-end">
 
                     <% if recipe.rating_count > 0 %>

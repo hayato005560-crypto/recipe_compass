@@ -2,12 +2,12 @@
 
   <h1 class="text-center mb-4">レシピ一覧</h1>
 
-  <!-- 検索エリア -->
+  <%# 検索エリア %>
   <div class="row justify-content-center mb-5">
     <div class="col-12 col-lg-10">
       <div class="card border-0 shadow-sm rounded-4 p-4">
 
-        <!-- 通常検索 -->
+        <%# 通常検索 %>
         <h5 class="fw-bold mb-3">条件から検索</h5>
 
         <%= form_with url: recipes_path, method: :get, data: { turbo_frame: "recipe_list" } do |form| %>
@@ -78,20 +78,26 @@
 
         <% end %>
 
-        <!-- 検索方法の仕切り -->
+        <%# 検索方法の仕切り %>
         <hr class="my-4">
 
-        <!-- AI画像検索 -->
+        <%# AI画像検索 %>
         <h5 class="fw-bold mb-3">画像から検索</h5>
 
         <p class="text-muted mb-3">食材が写っている画像からレシピを検索できます。</p>
 
         <% if @food_labels.present? %>
-          <p class="mb-3">
-            <% @food_labels.each do |label| %>
-              [<%= label %>]
-            <% end %>
-          </p>
+          <div class="mb-3">
+            <p class="fw-bold mb-2">画像から認識した食材</p>
+
+            <div class="d-flex flex-wrap gap-2">
+              <% @food_labels.each do |label| %>
+                <span class="badge rounded-pill text-bg-warning">
+                  <%= label %>
+                </span>
+              <% end %>
+            </div>
+          </div>
         <% end %>
 
         <%= form_with url: image_search_recipes_path,
@@ -123,7 +129,7 @@
     </div>
   </div>
 
-  <!-- レシピ一覧 -->
+  <%# レシピ一覧 %>
   <%= turbo_frame_tag "recipe_list" do %>
 
     <div class="row justify-content-center">
@@ -141,7 +147,7 @@
 
                 <div class="row g-0">
 
-                  <!-- レシピ画像 -->
+                  <%# レシピ画像 %>
                   <div class="col-12 col-md-4">
                     <% if recipe.image.attached? %>
                       <%= image_tag recipe.image,
@@ -156,7 +162,7 @@
                     <% end %>
                   </div>
 
-                  <!-- レシピ情報 -->
+                  <%# レシピ情報 %>
                   <div class="col-12 col-md-8">
                     <div class="card-body p-4 h-100 d-flex flex-column">
 
@@ -215,9 +221,15 @@
         <% else %>
 
           <div class="card border-0 shadow-sm rounded-4 p-5 text-center">
-            <p class="mb-0">
-              該当するレシピがありません。
-            </p>
+            <% if @food_labels.present? %>
+              <p class="fw-bold mb-2">認識した食材に一致するレシピがありませんでした。</p>
+              <p class="text-muted mb-3">別の画像を試すか、通常検索をご利用ください。</p>
+
+              <%= link_to "検索をリセット", recipes_path, class: "btn btn-outline-secondary" %>
+            <% else %>
+              <p class="mb-0">該当するレシピがありません。</p>
+            <% end %>
+
           </div>
 
         <% end %>

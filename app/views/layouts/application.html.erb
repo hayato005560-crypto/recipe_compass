@@ -39,12 +39,12 @@
     <header class="navbar navbar-expand-md recipe-navbar">
       <div class="container-fluid recipe-navbar-inner">
 
-        <!-- ロゴ -->
+        <%# ロゴ %>
         <%= link_to root_path, class: "navbar-brand" do %>
           <%= image_tag "recipe_compass_logo.png", alt: "Recipe Compass", class: "recipe-logo" %>
         <% end %>
 
-        <!-- スマホ用ハンバーガーボタン -->
+        <%# スマホ用ハンバーガーボタン %>
         <button
           class="navbar-toggler"
           type="button"
@@ -56,7 +56,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- 開閉されるメニュー -->
+        <%# 開閉されるメニュー %>
         <div class="collapse navbar-collapse" id="recipeNavbar">
           <div class="navbar-nav ms-auto align-items-md-center gap-md-3">
 
@@ -102,7 +102,7 @@
       </div>
     </header>
 
-    <!-- フラッシュメッセージ -->
+    <%# フラッシュメッセージ %>
     <% if notice || alert %>
       <div class="container mt-3">
         <% if notice %>
@@ -119,7 +119,7 @@
       </div>
     <% end %>
 
-    <!-- メインコンテンツ -->
+    <%# メインコンテンツ %>
     <% if current_page?(root_path) %>
       <main class="top-main">
         <%= yield %>

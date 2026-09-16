@@ -1,14 +1,14 @@
 <div class="row justify-content-center">
   <div class="col-12 col-lg-10">
 
-    <!-- レシピ全体 -->
+    <%# レシピ全体 %>
     <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4">
 
       <h1 class="text-center fw-bold mb-4">
         レシピ詳細
       </h1>
 
-      <!-- タイトル・Purpose・評価 -->
+      <%# タイトル・Purpose・評価 %>
       <div class="text-center mb-4">
         <h2 class="fw-bold mb-3">
           <%= @recipe.title %>
@@ -24,7 +24,7 @@
           </div>
         <% end %>
 
-        <!-- 評価 -->
+        <%# 評価 %>
         <% if @recipe.rating_count > 0 %>
           <div>
             <span class="fw-bold fs-5">
@@ -42,7 +42,7 @@
         <% end %>
       </div>
 
-      <!-- 画像 -->
+      <%# 画像 %>
       <% if @recipe.image.attached? %>
         <div class="mb-4">
           <%= image_tag @recipe.image,
@@ -51,7 +51,7 @@
         </div>
       <% end %>
 
-      <!-- 基本情報 -->
+      <%# 基本情報 %>
       <div class="card border-0 bg-light rounded-4 p-4 mb-3">
         <h3 class="h4 fw-bold mb-3">
           基本情報
@@ -73,7 +73,7 @@
         </p>
       </div>
 
-      <!-- 材料 -->
+      <%# 材料 %>
       <div class="card border-0 bg-light rounded-4 p-4 mb-3">
         <h3 class="h4 fw-bold mb-3">
           材料
@@ -82,7 +82,7 @@
         <%= simple_format(@recipe.ingredients, class: "mb-0") %>
       </div>
 
-      <!-- 作り方 -->
+      <%# 作り方 %>
       <div class="card border-0 bg-light rounded-4 p-4 mb-3">
         <h3 class="h4 fw-bold mb-3">
           作り方
@@ -91,7 +91,7 @@
         <%= simple_format(@recipe.steps, class: "mb-0") %>
       </div>
 
-      <!-- 補足説明 -->
+      <%# 補足説明 %>
       <div class="card border-0 bg-light rounded-4 p-4 mb-4">
         <h3 class="h4 fw-bold mb-3">
           補足説明
@@ -100,7 +100,7 @@
         <%= simple_format(@recipe.body, class: "mb-0") %>
       </div>
 
-      <!-- 管理操作 -->
+      <%# 管理操作 %>
       <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
 
         <%= link_to "コメント一覧",
