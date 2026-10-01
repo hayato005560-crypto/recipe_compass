@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     @user.sessions.destroy_all
 
 
-    redirect_to root_pathredirect_to root_path, notice: "退会処理が完了しました。"
+    redirect_to root_path, notice: "退会処理が完了しました。"
   end
 
   private
