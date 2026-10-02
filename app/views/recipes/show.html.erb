@@ -71,6 +71,10 @@
         </div>
       <% end %>
 
+      <p class="text-muted small">
+        投稿日：<%= l @recipe.created_at, format: :short %>
+      </p>
+
     </div>
 
     <div class="text-center mb-4">
@@ -145,6 +149,10 @@
 
             <p class="mb-3">
               <%= comment.body %>
+            </p>
+
+            <p class="text-muted small mb-1">
+              投稿日：<%= l comment.created_at, format: :short %>
             </p>
 
             <% if Current.user == comment.user %>

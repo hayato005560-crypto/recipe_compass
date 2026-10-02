@@ -1,4 +1,8 @@
 ja:
+  time:
+    formats:
+      short: "%Y/%m/%d %H:%M"
+
   activerecord:
     models:
       user: ユーザー
@@ -29,3 +33,4 @@ ja:
 
       comment:
         body: コメント
+        

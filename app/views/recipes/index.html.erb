@@ -180,6 +180,10 @@
                         <%= recipe.cooking_time %>分
                       </p>
 
+                      <p class="text-muted small mb-2">
+                        投稿日：<%= l recipe.created_at, format: :short %>
+                      </p>
+
                       <% if recipe.purposes.any? %>
                         <div class="d-flex flex-wrap gap-2">
                           <% recipe.purposes.each do |purpose| %>
