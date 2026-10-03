@@ -196,3 +196,38 @@ body {
   font-family: Georgia, "Yu Mincho", "Hiragino Mincho ProN", serif;
   font-weight: 700;
 }
+
+
+/* ページネーション */
+.recipe-pagination .pagination {
+  display: flex;
+  margin: 0;
+}
+
+.recipe-pagination .pagination > span {
+  background-color: #fff;
+  border: 1px solid #212529;
+  border-right: none;
+}
+
+.recipe-pagination .pagination > span:last-child {
+  border-right: 1px solid #212529;
+}
+
+.recipe-pagination .pagination a {
+  display: block;
+  padding: 8px 14px;
+  color: #212529;
+  text-decoration: none;
+}
+
+.recipe-pagination .pagination a:hover {
+  background-color: #f1f1f1;
+}
+
+.recipe-pagination .pagination .current {
+  padding: 8px 14px;
+  background-color: #f1f1f1;
+  color: #212529;
+  font-weight: bold;
+}

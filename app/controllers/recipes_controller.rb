@@ -66,6 +66,8 @@ class RecipesController < ApplicationController
     else
       @recipes = @recipes.order(created_at: :asc)
     end
+
+    @recipes = @recipes.page(params[:page]).per(10)
   end
 
   def show
