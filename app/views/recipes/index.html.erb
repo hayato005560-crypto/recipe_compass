@@ -241,6 +241,16 @@
       </div>
     </div>
 
-  <% end %>
+    <div class="recipe-pagination d-flex justify-content-center mt-4">
+      <%= paginate @recipes,
+             params: {
+               keyword: params[:keyword],
+               target: params[:target],
+               purpose_id: params[:purpose_id],
+               sort: params[:sort],
+               food_labels: params[:food_labels]
+             }.compact %>
+    </div>
 
+  <% end %>
 </div>

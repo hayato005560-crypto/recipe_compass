@@ -33,4 +33,12 @@ ja:
 
       comment:
         body: コメント
+
+  views:
+    pagination:
+      first: "最初"
+      last: "最後"
+      previous: "前へ"
+      next: "次へ"
+      truncate: "…"
         
