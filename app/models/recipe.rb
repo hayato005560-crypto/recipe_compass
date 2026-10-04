@@ -21,6 +21,51 @@ class Recipe < ApplicationRecord
     ratings.count
   end
 
+  scope :by_purpose, ->(purpose_id) {
+    joins(:purposes).where(purposes: { id: purpose_id })
+  }
+
+  scope :newest, -> { order(created_at: :desc) }
+  scope :oldest, -> { order(created_at: :asc) }
+
+  scope :high_rating, -> {
+    left_joins(:ratings)
+      .group("recipes.id")
+      .order("AVG(ratings.score) DESC")
+  }
+
+  scope :search_by_keyword, ->(keyword, target) {
+    case target
+    when "title"
+      where("title LIKE ?", "%#{keyword}%")
+    when "body"
+      where("body LIKE ?", "%#{keyword}%")
+    when "ingredients"
+      where("ingredients LIKE ?", "%#{keyword}%")
+    when "steps"
+      where("steps LIKE ?", "%#{keyword}%")
+    when "all"
+      where(
+        "title LIKE ? OR body LIKE ? OR ingredients LIKE ? OR steps LIKE ?",
+        "%#{keyword}%", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%"
+      )
+    else
+      all
+    end
+  }
+
+  scope :search_by_food_labels, ->(food_labels) {
+    recipes = none
+
+    food_labels.each do |label|
+      recipes = recipes.or(
+        where("ingredients LIKE ?", "%#{label}%")
+      )
+    end
+
+    recipes
+  }
+
   private
 
   def image_must_be_attached

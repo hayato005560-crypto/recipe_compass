@@ -17,54 +17,29 @@ class RecipesController < ApplicationController
     @food_labels = params[:food_labels]
 
     if @food_labels.present?
-      image_search_recipes = Recipe.none
-
-      @food_labels.each do |label|
-        image_search_recipes = image_search_recipes.or(
-          Recipe.where("ingredients LIKE ?", "%#{label}%")
-        )
-      end
-
-      @recipes = image_search_recipes
+      @recipes = @recipes.search_by_food_labels(@food_labels)
     end
 
     # キーワード・検索対象による絞り込み
     if keyword.present?
-      case target
-      when "title"
-        @recipes = @recipes.where("title LIKE ?", "%#{keyword}%")
-      when "body"
-        @recipes = @recipes.where("body LIKE ?", "%#{keyword}%")
-      when "ingredients"
-        @recipes = @recipes.where("ingredients LIKE ?", "%#{keyword}%")
-      when "steps"
-        @recipes = @recipes.where("steps LIKE ?", "%#{keyword}%")
-      when "all"
-        @recipes = @recipes.where(
-          "title LIKE ? OR body LIKE ? OR ingredients LIKE ? OR steps LIKE ?",
-          "%#{keyword}%", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%"
-        )
-      end
+      @recipes = @recipes.search_by_keyword(keyword, target)
     end
 
     # Purposeによる絞り込み
     if purpose_id.present?
-      @recipes = @recipes.joins(:purposes).where(purposes: { id: purpose_id })
+      @recipes = @recipes.by_purpose(purpose_id)
     end
 
     # 表示順の変更
     case sort
     when "newest"
-      @recipes = @recipes.order(created_at: :desc)
+      @recipes = @recipes.newest
     when "oldest"
-      @recipes = @recipes.order(created_at: :asc)
+      @recipes = @recipes.oldest
     when "high_rating"
-      @recipes = @recipes
-                 .left_joins(:ratings)
-                 .group("recipes.id")
-                 .order("AVG(ratings.score) DESC")
+      @recipes = @recipes.high_rating
     else
-      @recipes = @recipes.order(created_at: :asc)
+      @recipes = @recipes.oldest
     end
 
     @recipes = @recipes.page(params[:page]).per(10)
