@@ -10,7 +10,7 @@ class RecipesController < ApplicationController
     target = params[:target]
     @purposes = Purpose.all
     purpose_id = params[:purpose_id]
-    @recipes = Recipe.all
+    @recipes = Recipe.includes(:ratings, :purposes, :user).with_attached_image
     sort = params[:sort]
 
     # AI画像検索の結果を使ったレシピ検索
