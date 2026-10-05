@@ -12,13 +12,14 @@ class Recipe < ApplicationRecord
   validate :image_must_be_attached
 
   def average_rating
-    return 0 if ratings.empty?
+    scores = ratings.filter_map(&:score)
+    return 0 if scores.empty?
 
-    ratings.average(:score).to_f.round(1)
+    (scores.sum.to_f / scores.size).round(1)
   end
 
   def rating_count
-    ratings.count
+    ratings.count { |rating| rating.score.present? }
   end
 
   scope :by_purpose, ->(purpose_id) {
